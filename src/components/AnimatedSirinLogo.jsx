@@ -19,6 +19,30 @@ const PRICING_LOGO_STATE = {
   opacity: 1
 };
 
+const ABOUT_LOGO_STATE = {
+  left: "74%",
+  top: "50%",
+  width: SECTION_LOGO_SIZE,
+  scale: SECTION_LOGO_SCALE,
+  rotateY: -32,
+  rotateX: SECTION_LOGO_ROTATE_X,
+  skewX: -2,
+  scaleX: SECTION_LOGO_SCALE_X,
+  opacity: 1
+};
+
+const HERO_LOGO_STATE = {
+  left: "56%",
+  top: "42%",
+  width: "clamp(420px, 42vw, 760px)",
+  scale: 1,
+  rotateY: 0,
+  rotateX: 0,
+  skewX: 0,
+  scaleX: 1,
+  opacity: 1
+};
+
 function buildLogoTransform(state) {
   return `
     translate(-50%, -50%)
@@ -34,6 +58,27 @@ function buildLogoTransform(state) {
 export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDirectPortfolioJump, isLogoHidden }) {
   const wrapperRef = useRef(null);
   const containerRef = useRef(null);
+
+  // Set initial position once on mount to avoid React styling overwrites
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    if (!wrapper) return;
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    gsap.set(wrapper, {
+      left: isMobile ? '50%' : '56%',
+      top: isMobile ? '43%' : '42%',
+      width: isMobile ? 'clamp(220px, 22vw, 420px)' : 'clamp(420px, 42vw, 760px)',
+    });
+    wrapper.style.transform = `
+      translate(-50%, -50%)
+      perspective(1200px)
+      rotateY(0deg)
+      rotateX(0deg)
+      skewX(0deg)
+      scaleX(1)
+      scale(1)
+    `;
+  }, []);
   const [svgContent, setSvgContent] = useState('');
   const prevHandoffRef = useRef(isHandoffToStatic);
   const prevActiveIndexRef = useRef(activeIndex);
@@ -94,31 +139,29 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDi
       scaleX: isMobile ? 1 : PRICING_LOGO_STATE.scaleX,
     };
 
+    const aboutState = {
+      ...ABOUT_LOGO_STATE,
+      left: isMobile ? "80%" : ABOUT_LOGO_STATE.left,
+      top: isMobile ? "12%" : ABOUT_LOGO_STATE.top,
+      scale: isMobile ? 0.32 : ABOUT_LOGO_STATE.scale,
+      rotateY: isMobile ? 0 : ABOUT_LOGO_STATE.rotateY,
+      rotateX: isMobile ? 0 : ABOUT_LOGO_STATE.rotateX,
+      skewX: isMobile ? 0 : ABOUT_LOGO_STATE.skewX,
+      scaleX: isMobile ? 1 : ABOUT_LOGO_STATE.scaleX,
+    };
+
+    const heroState = {
+      ...HERO_LOGO_STATE,
+      left: isMobile ? "50%" : HERO_LOGO_STATE.left,
+      top: isMobile ? "43%" : HERO_LOGO_STATE.top,
+      width: isMobile ? "clamp(220px, 22vw, 420px)" : HERO_LOGO_STATE.width,
+    };
+
     // Explicit states configuration
     const logoStates = {
-      hero: {
-        left: '50%',
-        top: isMobile ? '43%' : '42%',
-        width: isMobile ? 'clamp(220px, 22vw, 420px)' : 'clamp(420px, 42vw, 760px)',
-        scale: 1,
-        rotateY: 0,
-        rotateX: 0,
-        skewX: 0,
-        scaleX: 1,
-        autoAlpha: 1
-      },
-      about: {
-        left: isMobile ? '80%' : '78%',
-        top: isMobile ? '12%' : '50%',
-        width: SECTION_LOGO_SIZE,
-        scale: isMobile ? 0.32 : SECTION_LOGO_SCALE,
-        rotateY: isMobile ? 0 : -32,
-        rotateX: isMobile ? 0 : SECTION_LOGO_ROTATE_X,
-        skewX: isMobile ? 0 : -2,
-        scaleX: isMobile ? 1 : SECTION_LOGO_SCALE_X,
-        autoAlpha: 1
-      },
-      approach: approachState
+      hero: { ...heroState, autoAlpha: 1 },
+      about: { ...aboutState, autoAlpha: 1 },
+      approach: { ...approachState, autoAlpha: 1 }
     };
 
     // Cap logo visibility: after index 2 (Approach), fade logo out completely
@@ -260,11 +303,7 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDi
       ref={wrapperRef}
       className="sirin-logo-wrapper fixed pointer-events-none z-40 flex items-center justify-center select-none"
       style={{
-        left: '50%',
-        top: isMobileInitial ? '43%' : '42%',
-        width: isMobileInitial ? 'clamp(220px, 22vw, 420px)' : 'clamp(420px, 38vw, 760px)',
         height: 'auto',
-        transform: 'translate(-50%, -50%)',
         perspective: 1200,
         transformStyle: 'preserve-3d',
         opacity: svgContent ? 1 : 0,
