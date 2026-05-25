@@ -16,16 +16,13 @@ export function DottedSurface({ className, ...props }) {
     const isMobile = window.innerWidth < 768;
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Adjust grid size and separation based on screen width
     const SEPARATION = isMobile ? 180 : 150;
     const AMOUNTX = isMobile ? 25 : 40;
     const AMOUNTY = isMobile ? 35 : 60;
 
     // Scene setup
     const scene = new THREE.Scene();
-    
-    // Using a subtle light gray fog matching our brand-light-gray (#f5f5f7)
-    scene.fog = new THREE.Fog(0xf5f5f7, 1500, 7000);
+    scene.fog = new THREE.Fog(0xffffff, 2000, 10000);
 
     const camera = new THREE.PerspectiveCamera(
       60,
@@ -33,31 +30,36 @@ export function DottedSurface({ className, ...props }) {
       1,
       10000
     );
-    
-    // Position camera to view from a premium 3D angle
-    camera.position.set(0, 400, 1100);
+    camera.position.set(0, 355, 1220);
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
       antialias: true,
     });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Cap at 2 for performance
+    renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(scene.fog.color, 0);
 
     container.appendChild(renderer.domElement);
 
-    // Create particles geometry
-    const geometry = new THREE.BufferGeometry();
+    // Create particles
     const positions = [];
+    const colors = [];
+
+    // Create geometry for all particles
+    const geometry = new THREE.BufferGeometry();
 
     for (let ix = 0; ix < AMOUNTX; ix++) {
       for (let iy = 0; iy < AMOUNTY; iy++) {
         const x = ix * SEPARATION - (AMOUNTX * SEPARATION) / 2;
-        const y = 0; // Initial Y position
+        const y = 0; // Will be animated
         const z = iy * SEPARATION - (AMOUNTY * SEPARATION) / 2;
 
         positions.push(x, y, z);
+        
+        // Since background of Hero is white, we always want dark gray / graphite dots
+        // regardless of OS theme. We push (0.11, 0.11, 0.12) to match brand-graphite.
+        colors.push(0.11, 0.11, 0.12);
       }
     }
 
@@ -65,13 +67,14 @@ export function DottedSurface({ className, ...props }) {
       'position',
       new THREE.Float32BufferAttribute(positions, 3)
     );
+    geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
 
-    // Material with subtle graphite gray (#1c1c1e) for dots
+    // Create material
     const material = new THREE.PointsMaterial({
-      color: new THREE.Color(0x1c1c1e),
-      size: isMobile ? 4.5 : 5.5,
+      size: isMobile ? 6 : 8,
+      vertexColors: true,
       transparent: true,
-      opacity: 0.6,
+      opacity: 0.8,
       sizeAttenuation: true,
     });
 
@@ -82,7 +85,7 @@ export function DottedSurface({ className, ...props }) {
     let count = 0;
     let animationId;
 
-    // Animation function - slow, smooth waves
+    // Animation function with slow, smooth waves to look premium
     const animate = () => {
       animationId = requestAnimationFrame(animate);
 
@@ -94,10 +97,12 @@ export function DottedSurface({ className, ...props }) {
         for (let iy = 0; iy < AMOUNTY; iy++) {
           const index = i * 3;
 
-          // Animate Y position with subtle, low-amplitude sine waves
+          // Animate Y position with sine waves
+          // We use amplitude 25 (from 50 in demo) and speed 0.02 (from 0.1 in demo)
+          // to make the motion extremely slow, smooth and premium
           positions[index + 1] =
-            Math.sin((ix + count) * 0.2) * 20 +
-            Math.sin((iy + count) * 0.3) * 20;
+            Math.sin((ix + count) * 0.25) * 25 +
+            Math.sin((iy + count) * 0.4) * 25;
 
           i++;
         }
@@ -105,9 +110,7 @@ export function DottedSurface({ className, ...props }) {
 
       positionAttribute.needsUpdate = true;
       renderer.render(scene, camera);
-      
-      // Speed is slow (0.015) for premium, fluid feeling
-      count += 0.015;
+      count += 0.02;
     };
 
     // Handle window resize
@@ -117,7 +120,6 @@ export function DottedSurface({ className, ...props }) {
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
       
-      // Render once if static to avoid black screens or outdated aspects
       if (prefersReducedMotion) {
         renderer.render(scene, camera);
       }
@@ -125,7 +127,7 @@ export function DottedSurface({ className, ...props }) {
 
     window.addEventListener('resize', handleResize);
 
-    // Run animation or render single static frame depending on settings
+    // Start animation or render static frame based on preferences
     if (prefersReducedMotion) {
       renderer.render(scene, camera);
     } else {
@@ -137,7 +139,9 @@ export function DottedSurface({ className, ...props }) {
       scene,
       camera,
       renderer,
+      particles: [points],
       animationId,
+      count,
     };
 
     // Cleanup function
@@ -149,6 +153,7 @@ export function DottedSurface({ className, ...props }) {
           cancelAnimationFrame(sceneRef.current.animationId);
         }
 
+        // Clean up Three.js objects
         sceneRef.current.scene.traverse((object) => {
           if (object instanceof THREE.Points) {
             object.geometry.dispose();
