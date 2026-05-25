@@ -29,11 +29,7 @@ export default function App() {
     if (activeIndexRef.current === 3) return;
     isAnimatingRef.current = true;
 
-    // 1. Hide logo on the spot (fixed or static)
-    setIsLogoHidden(true);
-
-    // 2. Wait 350ms for fade out, then transition scroll
-    setTimeout(() => {
+    const startTransition = () => {
       gsap.to(containerRef.current, {
         y: -3 * 100 + 'vh',
         duration: 1.3,
@@ -46,7 +42,42 @@ export default function App() {
 
       setActiveIndex(3);
       activeIndexRef.current = 3;
-    }, 350);
+    };
+
+    if (isLogoHidden) {
+      startTransition();
+    } else {
+      setIsLogoHidden(true);
+      setTimeout(startTransition, 350);
+    }
+  };
+
+  const goToContacts = () => {
+    if (isAnimatingRef.current) return;
+    if (activeIndexRef.current === 4) return;
+    isAnimatingRef.current = true;
+
+    const startTransition = () => {
+      gsap.to(containerRef.current, {
+        y: -4 * 100 + 'vh',
+        duration: 1.3,
+        ease: 'power3.inOut',
+        onComplete: () => {
+          isAnimatingRef.current = false;
+          setIsHandoffToStatic(true);
+        },
+      });
+
+      setActiveIndex(4);
+      activeIndexRef.current = 4;
+    };
+
+    if (isLogoHidden) {
+      startTransition();
+    } else {
+      setIsLogoHidden(true);
+      setTimeout(startTransition, 350);
+    }
   };
 
   const goToSection = (index) => {
@@ -56,6 +87,10 @@ export default function App() {
 
     if (index === 3) {
       goToPortfolio();
+      return;
+    }
+    if (index === 4) {
+      goToContacts();
       return;
     }
 
@@ -104,6 +139,8 @@ export default function App() {
       goToSection(0);
     } else if (targetIndex === 3) {
       goToPortfolio();
+    } else if (targetIndex === 4) {
+      goToContacts();
     } else {
       goToSection(targetIndex);
     }

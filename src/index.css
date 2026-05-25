@@ -150,8 +150,11 @@ html.lenis, html.lenis body {
   }
 }
 
-/* Header Mini Logo Button Styling */
-.header-logo-button {
+/* Centered Nav Pill Sub-Component Styles */
+.nav-logo-button {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -159,28 +162,26 @@ html.lenis, html.lenis body {
   border: none;
   padding: 0;
   cursor: pointer;
-  z-index: 60;
-  width: 28px; /* Mobile width: 26-30px */
-  height: auto;
-  opacity: 1;
-  transition: opacity 0.25s ease, transform 0.25s ease;
   outline: none;
+  transition: opacity 0.25s ease, transform 0.25s ease, background-color 0.25s ease;
 }
 
-.header-logo-button:hover {
-  opacity: 0.65;
+.nav-logo-button:hover {
+  opacity: 0.8;
   transform: scale(0.96);
 }
 
-.header-logo-button img {
-  width: 100%;
+.nav-logo-button img {
+  width: 20px;
   height: auto;
-  object-fit: contain;
+  display: block;
 }
 
-@media (min-width: 768px) {
-  .header-logo-button {
-    width: 32px; /* Desktop width: 28-34px */
-  }
+.nav-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(0, 0, 0, 0.08);
+  margin: 0 4px;
+  display: block;
 }
 
