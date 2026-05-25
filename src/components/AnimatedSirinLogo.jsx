@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
 
-const SECTION_LOGO_SIZE = "clamp(260px, 24vw, 460px)";
-const SECTION_LOGO_SCALE = 0.62;
+const SECTION_LOGO_SIZE = "clamp(320px, 30vw, 560px)";
+const SECTION_LOGO_SCALE = 0.72;
 const SECTION_LOGO_ROTATE_X = 4;
 const SECTION_LOGO_SCALE_X = 0.92;
 
 const APPROACH_LOGO_STATE = {
-  left: "24%",
+  left: "22%",
   top: "50%",
   width: SECTION_LOGO_SIZE,
   scale: SECTION_LOGO_SCALE,
@@ -96,7 +96,7 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDi
         autoAlpha: 1
       },
       about: {
-        left: isMobile ? '80%' : '74%',
+        left: isMobile ? '80%' : '76%',
         top: isMobile ? '12%' : '50%',
         width: SECTION_LOGO_SIZE,
         scale: isMobile ? 0.32 : SECTION_LOGO_SCALE,

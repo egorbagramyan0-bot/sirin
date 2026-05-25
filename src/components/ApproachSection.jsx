@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 
-const SECTION_LOGO_SIZE = "clamp(260px, 24vw, 460px)";
-const SECTION_LOGO_SCALE = 0.62;
+const SECTION_LOGO_SIZE = "clamp(320px, 30vw, 560px)";
+const SECTION_LOGO_SCALE = 0.72;
 const SECTION_LOGO_ROTATE_X = 4;
 const SECTION_LOGO_SCALE_X = 0.92;
 
 const APPROACH_LOGO_STATE = {
-  left: "24%",
+  left: "22%",
   top: "50%",
   width: SECTION_LOGO_SIZE,
   scale: SECTION_LOGO_SCALE,
