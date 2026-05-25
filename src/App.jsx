@@ -14,6 +14,7 @@ gsap.registerPlugin(Observer);
 export default function App() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHandoffToStatic, setIsHandoffToStatic] = useState(false);
+  const [isDirectPortfolioJump, setIsDirectPortfolioJump] = useState(false);
   const containerRef = useRef(null);
   const isAnimatingRef = useRef(false);
   const activeIndexRef = useRef(0);
@@ -60,6 +61,28 @@ export default function App() {
     activeIndexRef.current = index;
   };
 
+  const goToPortfolioFromHero = () => {
+    if (isAnimatingRef.current) return;
+    isAnimatingRef.current = true;
+    setIsDirectPortfolioJump(true);
+
+    gsap.to(containerRef.current, {
+      y: -3 * 100 + 'vh',
+      duration: 1.3,
+      ease: 'power3.inOut',
+      onComplete: () => {
+        setTimeout(() => {
+          setIsHandoffToStatic(true);
+          setIsDirectPortfolioJump(false);
+          isAnimatingRef.current = false;
+        }, 250);
+      },
+    });
+
+    setActiveIndex(3);
+    activeIndexRef.current = 3;
+  };
+
   useEffect(() => {
     const observer = Observer.create({
       target: window,
@@ -97,7 +120,11 @@ export default function App() {
     <div id="app-container" className="relative w-full h-screen overflow-hidden bg-white">
       {/* fixed global layers */}
       <Header onNavigate={goToSection} />
-      <AnimatedSirinLogo activeIndex={activeIndex} isHandoffToStatic={isHandoffToStatic} />
+      <AnimatedSirinLogo 
+        activeIndex={activeIndex} 
+        isHandoffToStatic={isHandoffToStatic} 
+        isDirectPortfolioJump={isDirectPortfolioJump}
+      />
 
       {/* Vertical Section Indicator (Right Side) */}
       <div className="fixed right-8 md:right-12 top-1/2 -translate-y-1/2 z-30 hidden md:flex flex-col gap-5 items-center select-none mix-blend-difference">
@@ -128,7 +155,7 @@ export default function App() {
         className="w-full h-full flex flex-col"
         style={{ transformStyle: 'preserve-3d' }}
       >
-        <Hero onPortfolioClick={() => goToSection(3)} />
+        <Hero onPortfolioClick={goToPortfolioFromHero} />
         <AboutSection />
         <ApproachSection isLogoVisible={isHandoffToStatic} />
         <PortfolioCarousel />

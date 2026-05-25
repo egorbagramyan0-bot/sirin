@@ -31,7 +31,7 @@ function buildLogoTransform(state) {
   `;
 }
 
-export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic }) {
+export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDirectPortfolioJump }) {
   const wrapperRef = useRef(null);
   const containerRef = useRef(null);
   const [svgContent, setSvgContent] = useState('');
@@ -57,6 +57,16 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic }) {
     if (!svgContent) return;
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
+
+    if (isDirectPortfolioJump) {
+      gsap.to(wrapper, {
+        autoAlpha: 0,
+        scale: 0.96,
+        duration: 0.45,
+        ease: 'power2.out',
+      });
+      return;
+    }
 
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
 
@@ -171,7 +181,7 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic }) {
       }
     });
 
-  }, [activeIndex, svgContent, isHandoffToStatic]);
+  }, [activeIndex, svgContent, isHandoffToStatic, isDirectPortfolioJump]);
 
   // Independent eye blinking loop
   useEffect(() => {
