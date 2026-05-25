@@ -95,31 +95,31 @@ export default function ApproachSection({ isLogoVisible }) {
   return (
     <section 
       id="approach" 
-      className="pricing-section relative w-full h-screen flex items-center justify-center px-8 md:px-16 bg-white border-t border-brand-light-gray flex-shrink-0 overflow-hidden"
+      className="pricing-section relative w-full h-screen flex items-center justify-center pt-[110px] pb-[70px] lg:pt-[125px] lg:pb-[75px] px-8 md:px-16 bg-white border-t border-brand-light-gray flex-shrink-0 overflow-hidden"
     >
-      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[32%_68%] gap-12 lg:gap-16 items-center">
+      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-[32%_68%] gap-12 lg:gap-16 items-center h-full">
         {/* Left Column - Spacer for Floating Animated Logo */}
         <div className="flex lg:flex items-center justify-center h-[120px] lg:h-[500px] order-2 lg:order-1">
           {/* Logo lands here automatically via fixed position animation */}
         </div>
 
         {/* Right Column - Content */}
-        <div className="pricing-content flex flex-col justify-center w-full max-w-3xl order-1 lg:order-2 ml-auto -mt-6 lg:-mt-10">
+        <div className="pricing-content flex flex-col justify-center w-full max-w-3xl order-1 lg:order-2 ml-auto">
           <span className="section-kicker font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-3 block">
             ЦЕНЫ
           </span>
           <h2 className="font-display text-2xl sm:text-3xl lg:text-[44px] font-light tracking-tight text-brand-black leading-tight mb-2.5">
             Стоимость разработки сайта
           </h2>
-          <p className="font-sans text-sm sm:text-base lg:text-[17px] text-brand-gray leading-relaxed mb-8 max-w-2xl">
+          <p className="font-sans text-sm sm:text-base lg:text-[17px] text-brand-gray leading-relaxed mb-6 lg:mb-7 max-w-2xl">
             Выберите формат под задачу: от быстрого лендинга до полноценного многостраничного сайта с аналитикой и подготовкой к рекламе.
           </p>
 
-          <div className="pricing-cards flex flex-col gap-5 w-full">
+          <div className="pricing-cards flex flex-col gap-4 w-full">
             {cards.map((card, idx) => (
               <article 
                 key={idx} 
-                className="pricing-card border border-black/10 rounded-[24px] p-6 lg:p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-black/30 bg-[#fafafa] flex flex-col md:flex-row justify-between items-start md:items-stretch gap-6"
+                className="pricing-card border border-black/10 rounded-[24px] p-5 lg:py-5.5 lg:px-7 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md hover:border-black/30 bg-[#fafafa] flex flex-col md:flex-row justify-between items-start md:items-stretch gap-5.5"
               >
                 {/* Left Side: Title, Badge, Description, Features */}
                 <div className="flex-1 flex flex-col justify-between">
@@ -132,12 +132,12 @@ export default function ApproachSection({ isLogoVisible }) {
                         {card.badge}
                       </span>
                     </div>
-                    <p className="font-sans text-[13px] sm:text-sm lg:text-[15px] text-brand-gray mt-2 leading-relaxed max-w-xl">
+                    <p className="font-sans text-[13px] sm:text-sm lg:text-[14.5px] text-brand-gray mt-2 leading-[1.45] max-w-xl">
                       {card.desc}
                     </p>
                   </div>
                   
-                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-[13px] sm:text-sm lg:text-[14px] text-brand-gray mt-5 border-t border-black/5 pt-4">
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1.5 text-[13px] sm:text-sm lg:text-[14px] text-brand-gray mt-4 border-t border-black/5 pt-3">
                     {card.features.map((feat, i) => (
                       <li key={i} className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-brand-black/35 flex-shrink-0"></span>
@@ -148,14 +148,14 @@ export default function ApproachSection({ isLogoVisible }) {
                 </div>
 
                 {/* Right Side: Price (top right) & Button (bottom right) */}
-                <div className="flex-shrink-0 w-full md:w-44 flex flex-col justify-between items-start md:items-end gap-5 text-left md:text-right border-t md:border-t-0 border-black/5 pt-4 md:pt-0">
+                <div className="flex-shrink-0 w-full md:w-44 flex flex-col justify-between items-start md:items-end gap-4 text-left md:text-right border-t md:border-t-0 border-black/5 pt-3.5 md:pt-0">
                   <div>
                     <span className="font-sans text-[10px] text-brand-gray uppercase tracking-wider block mb-0.5">Стоимость</span>
                     <span className="font-display font-semibold text-xl lg:text-[23px] text-brand-black whitespace-nowrap">
                       {card.price}
                     </span>
                   </div>
-                  <button className="w-full md:w-auto px-6 py-2.5 rounded-full bg-brand-black text-white hover:bg-brand-graphite transition-all duration-300 text-[10px] sm:text-[11px] font-semibold tracking-wider uppercase cursor-pointer h-11 flex items-center justify-center">
+                  <button className="w-full md:w-auto px-5 py-2.5 rounded-full bg-brand-black text-white hover:bg-brand-graphite transition-all duration-300 text-[10px] sm:text-[10.5px] font-semibold tracking-wider uppercase cursor-pointer h-10 flex items-center justify-center">
                     {card.btnText}
                   </button>
                 </div>
