@@ -32,7 +32,7 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic }) {
     // Explicit states configuration
     const logoStates = {
       hero: {
-        left: isMobile ? '50%' : '56%',
+        left: '50%',
         top: isMobile ? '43%' : '42%',
         width: isMobile ? 'clamp(220px, 22vw, 420px)' : 'clamp(420px, 42vw, 760px)',
         scale: 1,
