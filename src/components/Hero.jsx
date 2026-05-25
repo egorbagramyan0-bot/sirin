@@ -43,7 +43,7 @@ export default function Hero({ onPortfolioClick }) {
           и приводят клиентов.
         </h1>
         <p className="font-sans text-xs md:text-sm text-brand-gray tracking-wide leading-relaxed mb-10">
-          Продуманный дизайн, сильная визуальная подача и удобный путь до заявки.
+          Продуманный сайт для вашего бизнеса от 25 000 ₽ и 7 дней.
         </p>
         <div>
           <button 
