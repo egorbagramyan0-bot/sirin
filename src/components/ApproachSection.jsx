@@ -24,23 +24,23 @@ export default function ApproachSection({ isLogoVisible }) {
   const steps = [
     {
       num: '01',
-      title: 'Discover',
-      desc: 'We dive deep into your brand, audience, and goals.',
+      title: 'Разбор',
+      desc: 'Изучаем бизнес, конкурентов, аудиторию, услуги и то, какое действие должен совершить клиент.',
     },
     {
       num: '02',
-      title: 'Design',
-      desc: 'We craft clean, modern designs that communicate and convert.',
+      title: 'Прототип и дизайн',
+      desc: 'Собираем структуру страниц, продумываем блоки, визуальный стиль, акценты и путь пользователя.',
     },
     {
       num: '03',
-      title: 'Develop',
-      desc: 'We build fast, responsive websites with precision and care.',
+      title: 'Разработка',
+      desc: 'Верстаем адаптивный сайт, настраиваем анимации, формы, скорость и корректную работу на устройствах.',
     },
     {
       num: '04',
-      title: 'Deliver',
-      desc: 'We launch, optimize, and support your digital presence for long-term success.',
+      title: 'Запуск',
+      desc: 'Подключаем домен, хостинг, аналитику, проверяем сайт и готовим его к рекламе и трафику.',
     },
   ];
 
@@ -58,13 +58,13 @@ export default function ApproachSection({ isLogoVisible }) {
         {/* Right Column - Content */}
         <div className="flex flex-col justify-center max-w-xl order-1 lg:order-2 ml-auto">
           <span className="font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-6 block">
-            OUR APPROACH
+            НАШ ПРОЦЕСС
           </span>
-          <h2 className="font-display text-3xl md:text-5xl font-light tracking-tight text-brand-black leading-tight mb-8">
-            Strategy. Design.<br />Experience.
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-brand-black leading-tight mb-8">
+            Смысл. Дизайн.<br />Запуск.
           </h2>
-          <p className="font-sans text-sm md:text-base text-brand-gray leading-relaxed mb-12">
-            We follow a collaborative process that ensures every project is thoughtful, intentional, and impactful.
+          <p className="font-sans text-xs md:text-sm text-brand-gray leading-relaxed mb-12">
+            Мы не просто рисуем красивый экран. Сначала собираем логику сайта, потом визуал, затем доводим проект до рабочей версии и запускаем.
           </p>
 
           <hr className="border-brand-silver/50 mb-10 w-24" />
@@ -77,7 +77,7 @@ export default function ApproachSection({ isLogoVisible }) {
                   {step.num}
                 </div>
                 <div>
-                  <h3 className="font-display font-medium text-sm md:text-base tracking-[0.1em] text-brand-black mb-1.5 uppercase">
+                  <h3 className="font-display font-medium text-xs md:text-sm tracking-[0.1em] text-brand-black mb-1.5 uppercase">
                     {step.title}
                   </h3>
                   <p className="font-sans text-xs md:text-sm text-brand-gray leading-relaxed">

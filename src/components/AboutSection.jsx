@@ -11,13 +11,13 @@ export default function AboutSection() {
         {/* Left Column - Content */}
         <div className="flex flex-col justify-center max-w-xl">
           <span className="font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-6 block">
-            ABOUT SIRIN
+            О СТУДИИ
           </span>
-          <h2 className="font-display text-3xl md:text-5xl font-light tracking-tight text-brand-black leading-tight mb-8">
-            Designing the future<br />of the web.
+          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-brand-black leading-tight mb-8">
+            Упаковываем бизнес в современный сайт.
           </h2>
-          <p className="font-sans text-sm md:text-base text-brand-gray leading-relaxed mb-12">
-            SIRIN is a premium web design studio focused on building digital experiences that blend strategy, aesthetics, and technology.
+          <p className="font-sans text-xs md:text-sm text-brand-gray leading-relaxed mb-12">
+            SIRIN — студия, которая помогает бизнесу выглядеть сильнее в интернете. Мы проектируем сайты, где визуал, структура и техническая реализация работают на доверие и заявки.
           </p>
 
           <hr className="border-brand-silver/50 mb-10 w-24" />
@@ -30,11 +30,11 @@ export default function AboutSection() {
                 <Target className="w-5 h-5 stroke-[1.25]" />
               </div>
               <div>
-                <h3 className="font-display font-medium text-sm md:text-base tracking-[0.1em] text-brand-black mb-1.5 uppercase">
-                  Strategy-led design
+                <h3 className="font-display font-medium text-xs md:text-sm tracking-[0.1em] text-brand-black mb-1.5 uppercase">
+                  Дизайн от задачи
                 </h3>
                 <p className="font-sans text-xs md:text-sm text-brand-gray">
-                  We align business goals with user needs.
+                  Сначала разбираем бизнес, аудиторию и цель сайта, а уже потом собираем визуал.
                 </p>
               </div>
             </div>
@@ -45,11 +45,11 @@ export default function AboutSection() {
                 <Gem className="w-5 h-5 stroke-[1.25]" />
               </div>
               <div>
-                <h3 className="font-display font-medium text-sm md:text-base tracking-[0.1em] text-brand-black mb-1.5 uppercase">
-                  Refined aesthetics
+                <h3 className="font-display font-medium text-xs md:text-sm tracking-[0.1em] text-brand-black mb-1.5 uppercase">
+                  Премиальная подача
                 </h3>
                 <p className="font-sans text-xs md:text-sm text-brand-gray">
-                  Minimal, Timeless, Purposeful.
+                  Минимализм, чистая типографика, аккуратная сетка и визуал, который не устаревает через месяц.
                 </p>
               </div>
             </div>
@@ -60,11 +60,11 @@ export default function AboutSection() {
                 <Zap className="w-5 h-5 stroke-[1.25]" />
               </div>
               <div>
-                <h3 className="font-display font-medium text-sm md:text-base tracking-[0.1em] text-brand-black mb-1.5 uppercase">
-                  Performance focused
+                <h3 className="font-display font-medium text-xs md:text-sm tracking-[0.1em] text-brand-black mb-1.5 uppercase">
+                  Сайт без лишнего шума
                 </h3>
                 <p className="font-sans text-xs md:text-sm text-brand-gray">
-                  Fast, accessible, and built to scale.
+                  Быстрая загрузка, адаптив под телефон и понятная структура для пользователя.
                 </p>
               </div>
             </div>

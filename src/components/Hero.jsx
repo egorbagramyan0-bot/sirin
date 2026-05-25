@@ -32,22 +32,22 @@ export default function Hero() {
       {/* Hero Content Grid (Left Align - 2-zone Layout on desktop) */}
       <div className="relative z-20 flex-1 flex flex-col justify-center w-full md:w-[30vw] max-w-md mt-12">
         <span className="font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-6 block">
-          WEB DESIGN STUDIO
+          СТУДИЯ ВЕБ-ДИЗАЙНА
         </span>
-        <h1 className="font-display text-3xl md:text-4xl lg:text-[2.75rem] font-light tracking-tight text-brand-black leading-[1.15] mb-6">
-          We craft digital<br />
-          experiences that<br />
-          inspire and perform.
+        <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.2rem] font-light tracking-tight text-brand-black leading-[1.15] mb-6">
+          Создаем сайты,<br />
+          которые выглядят дорого<br />
+          и приводят клиентов.
         </h1>
         <p className="font-sans text-xs md:text-sm text-brand-gray tracking-wide leading-relaxed mb-10">
-          Premium websites. Refined aesthetics. Meaningful interactions.
+          Продуманный дизайн, сильная визуальная подача и удобный путь до заявки.
         </p>
         <div>
           <a 
             href="#portfolio" 
             className="group inline-flex items-center gap-4 px-6 py-3 rounded-full bg-brand-black text-white hover:bg-brand-graphite transition-all duration-300 text-xs font-semibold tracking-widest shadow-lg shadow-black/10"
           >
-            VIEW OUR WORK
+            СМОТРЕТЬ РАБОТЫ
             <span className="transform group-hover:translate-x-1.5 transition-transform duration-300">→</span>
           </a>
         </div>

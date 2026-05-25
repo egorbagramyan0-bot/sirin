@@ -22,7 +22,7 @@ export default function Footer() {
               />
             </div>
             <p className="font-sans text-[12px] md:text-[13px] text-brand-gray leading-relaxed max-w-xs hidden sm:block">
-              We create premium websites and digital experiences that elevate brands and deliver real results.
+              Создаем современные сайты для бизнеса: от первого экрана до запуска на домене. Чистый дизайн, понятная структура и акцент на заявки.
             </p>
           </div>
 
@@ -65,32 +65,32 @@ export default function Footer() {
           {/* Navigation links */}
           <div>
             <h3 className="font-display font-semibold text-[9px] md:text-[10px] tracking-[0.25em] text-brand-gray uppercase mb-3 md:mb-6">
-              NAVIGATION
+              НАВИГАЦИЯ
             </h3>
             <ul className="flex flex-col gap-2 md:gap-3.5">
               <li>
                 <a href="#portfolio" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
-                  Work
+                  Портфолио
                 </a>
               </li>
               <li>
                 <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
-                  Services
+                  Услуги
                 </a>
               </li>
               <li>
                 <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
-                  About
+                  О студии
                 </a>
               </li>
               <li>
                 <a href="#approach" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
-                  Process
+                  Процесс
                 </a>
               </li>
               <li>
                 <a href="#hero" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
-                  Insights
+                  Подход
                 </a>
               </li>
             </ul>
@@ -99,32 +99,32 @@ export default function Footer() {
           {/* Services links */}
           <div className="hidden sm:block">
             <h3 className="font-display font-semibold text-[9px] md:text-[10px] tracking-[0.25em] text-brand-gray uppercase mb-3 md:mb-6">
-              SERVICES
+              УСЛУГИ
             </h3>
             <ul className="flex flex-col gap-2 md:gap-3.5">
               <li>
                 <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
-                  Web Design
+                  Веб-дизайн
                 </a>
               </li>
               <li>
                 <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
-                  Web Development
+                  Разработка сайтов
                 </a>
               </li>
               <li>
                 <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
-                  Branding
+                  Визуальная упаковка
                 </a>
               </li>
               <li>
                 <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
-                  UX/UI Design
+                  UX/UI-дизайн
                 </a>
               </li>
               <li>
                 <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
-                  Performance
+                  Оптимизация скорости
                 </a>
               </li>
             </ul>
@@ -135,10 +135,10 @@ export default function Footer() {
         <div className="lg:col-span-4 flex flex-col justify-between gap-4 md:gap-8 lg:text-right lg:items-end">
           <div className="flex flex-col gap-2 md:gap-4">
             <h3 className="font-display font-semibold text-[9px] md:text-[10px] tracking-[0.25em] text-brand-gray uppercase">
-              LET'S WORK TOGETHER
+              ОБСУДИМ ПРОЕКТ?
             </h3>
-            <p className="font-display text-base md:text-lg font-light leading-relaxed text-brand-silver">
-              Have a project in mind?<br />We'd love to hear about it.
+            <p className="font-display text-xs md:text-sm font-light leading-relaxed text-brand-silver">
+              Расскажите, какой сайт вам нужен.<br />Мы предложим структуру, стиль и понятный план запуска.
             </p>
           </div>
 
@@ -146,7 +146,7 @@ export default function Footer() {
             href="mailto:hello@sirin.studio" 
             className="inline-flex items-center gap-2.5 px-5 py-2.5 md:px-6 md:py-3 rounded-full bg-white text-brand-black hover:bg-white/90 transition-all duration-300 text-[11px] md:text-xs font-semibold tracking-widest shadow-lg"
           >
-            START A PROJECT
+            НАЧАТЬ ПРОЕКТ
             <ArrowUpRight className="w-3.5 h-3.5 stroke-[2]" />
           </a>
 
@@ -154,8 +154,8 @@ export default function Footer() {
             <a href="mailto:hello@sirin.studio" className="hover:text-white transition-colors">
               hello@sirin.studio
             </a>
-            <a href="tel:+15551234567" className="hover:text-white transition-colors">
-              +1 (555) 123-4567
+            <a href="tel:+79991234567" className="hover:text-white transition-colors">
+              +7 (999) 123-45-67
             </a>
           </div>
         </div>
@@ -165,11 +165,11 @@ export default function Footer() {
       {/* Bottom Row */}
       <div className="w-full max-w-7xl mx-auto pt-6 border-t border-white/[0.05] flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] md:text-[11px] text-brand-gray">
         <span>
-          &copy; {currentYear} SIRIN STUDIO. ALL RIGHTS RESERVED.
+          &copy; 2026 SIRIN STUDIO. ВСЕ ПРАВА ЗАЩИЩЕНЫ.
         </span>
         <div className="flex gap-4 md:gap-6">
-          <a href="#" className="hover:text-white transition-colors">PRIVACY POLICY</a>
-          <a href="#" className="hover:text-white transition-colors">TERMS OF SERVICE</a>
+          <a href="#" className="hover:text-white transition-colors">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</a>
+          <a href="#" className="hover:text-white transition-colors">УСЛОВИЯ ИСПОЛЬЗОВАНИЯ</a>
         </div>
       </div>
     </footer>

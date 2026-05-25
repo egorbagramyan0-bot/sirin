@@ -4,18 +4,24 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const projects = [
   {
-    title: 'LUMEN',
-    tags: 'Web Design, Development',
+    title: 'ИНТЕРЬЕРНЫЙ САЛОН',
+    tags: 'Дизайн сайта, структура, разработка',
+    heading: 'Премиальный сайт для салона отделочных материалов',
+    desc: 'Каталог, преимущества, контакты и маршрут — все, что помогает клиенту быстрее принять решение.',
     image: '/lumen.png',
   },
   {
-    title: 'NEXUS',
-    tags: 'Web Design, Branding, Development',
+    title: 'САЙТ УСЛУГ',
+    tags: 'Прототип, дизайн, разработка',
+    heading: 'Понятная структура для заявок',
+    desc: 'Упаковка услуги, доверие, преимущества, форма заявки и адаптивная версия.',
     image: '/nexus.png',
   },
   {
-    title: 'AURORA',
-    tags: 'Web Design, Development',
+    title: 'РЕСТОРАН / БРЕНД',
+    tags: 'Дизайн сайта, визуальная упаковка',
+    heading: 'Сайт, который передает атмосферу',
+    desc: 'Визуал, меню, залы, банкеты, отзывы и быстрый контакт с заведением.',
     image: '/aurora.png',
   },
 ];
@@ -57,15 +63,15 @@ export default function PortfolioCarousel() {
       className="relative w-full h-screen bg-white flex flex-col justify-center border-t border-brand-light-gray select-none flex-shrink-0 overflow-hidden"
     >
       {/* Intro Header */}
-      <div className="w-full max-w-7xl mx-auto px-8 md:px-16 text-center mb-16">
-        <span className="font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-6 block">
-          FEATURED WORK
+      <div className="w-full max-w-7xl mx-auto px-8 md:px-16 text-center mb-8">
+        <span className="font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-4 block">
+          ПОРТФОЛИО
         </span>
-        <h2 className="font-display text-3xl md:text-5xl font-light tracking-tight text-brand-black leading-tight mb-4">
-          Selected projects
+        <h2 className="font-display text-2xl sm:text-3xl md:text-5xl font-light tracking-tight text-brand-black leading-tight mb-4">
+          Избранные проекты
         </h2>
-        <p className="font-sans text-xs md:text-sm text-brand-gray tracking-wide max-w-md mx-auto">
-          A selection of websites and digital experiences we're proud to have crafted.
+        <p className="font-sans text-xs md:text-sm text-brand-gray tracking-wide max-w-2xl mx-auto">
+          Несколько направлений, в которых мы можем упаковать бизнес: от локальных услуг до премиальных заведений и интерьерных проектов.
         </p>
       </div>
 
@@ -91,15 +97,25 @@ export default function PortfolioCarousel() {
                   
                   {/* Card Description Footer */}
                   <div className="flex justify-between items-start px-2">
-                    <div>
-                      <h3 className="font-display font-medium text-sm md:text-base tracking-[0.1em] text-brand-black uppercase">
+                    <div className="flex-1 pr-4">
+                      <h3 className="font-display font-medium text-xs md:text-sm tracking-[0.1em] text-brand-black uppercase">
                         {project.title}
                       </h3>
-                      <p className="font-sans text-[11px] md:text-xs text-brand-gray mt-1">
+                      <p className="font-sans text-[10px] md:text-xs text-brand-gray mt-0.5">
                         {project.tags}
                       </p>
+                      {project.heading && (
+                        <p className="font-display font-medium text-[11px] md:text-xs text-brand-black mt-2 leading-snug">
+                          {project.heading}
+                        </p>
+                      )}
+                      {project.desc && (
+                        <p className="font-sans text-[10px] md:text-[11px] text-brand-gray/80 mt-1 leading-relaxed">
+                          {project.desc}
+                        </p>
+                      )}
                     </div>
-                    <span className="text-brand-gray group-hover:text-brand-black group-hover:translate-x-1.5 transition-all duration-300 transform font-light text-base md:text-lg">
+                    <span className="text-brand-gray group-hover:text-brand-black group-hover:translate-x-1.5 transition-all duration-300 transform font-light text-base md:text-lg shrink-0 mt-0.5">
                       →
                     </span>
                   </div>
