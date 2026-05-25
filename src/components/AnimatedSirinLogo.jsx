@@ -178,6 +178,20 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDi
       autoAlpha: isHandoffToStatic ? 0 : state.autoAlpha,
       duration: duration,
       ease: 'power3.inOut',
+      onStart: () => {
+        const floatEl = wrapper?.querySelector('.sirin-logo-float');
+        if (floatEl) {
+          floatEl.classList.add('no-float');
+        }
+      },
+      onComplete: () => {
+        if (!isHandoffToStatic) {
+          const floatEl = wrapper?.querySelector('.sirin-logo-float');
+          if (floatEl) {
+            floatEl.classList.remove('no-float');
+          }
+        }
+      }
     });
 
     // 3. Анимируем 3D свойства на animObject

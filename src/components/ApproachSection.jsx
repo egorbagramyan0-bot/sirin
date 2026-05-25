@@ -32,6 +32,18 @@ function buildLogoTransform(state) {
 export default function ApproachSection({ isLogoVisible }) {
   const [svgContent, setSvgContent] = useState('');
   const [isMobile, setIsMobile] = useState(false);
+  const [isFloating, setIsFloating] = useState(false);
+
+  useEffect(() => {
+    if (isLogoVisible) {
+      const timer = setTimeout(() => {
+        setIsFloating(true);
+      }, 50);
+      return () => clearTimeout(timer);
+    } else {
+      setIsFloating(false);
+    }
+  }, [isLogoVisible]);
 
   useEffect(() => {
     // Check mobile state dynamically
@@ -191,11 +203,11 @@ export default function ApproachSection({ isLogoVisible }) {
               opacity: isLogoVisible ? 1 : 0,
               visibility: isLogoVisible ? 'visible' : 'hidden',
               pointerEvents: 'none',
-              transition: 'opacity 0.35s ease, visibility 0.35s ease',
+              transition: isLogoVisible ? 'none' : 'opacity 0.35s ease, visibility 0.35s ease',
             }}
           >
             <div className="sirin-logo-visual w-full h-full flex items-center justify-center">
-              <div className="sirin-logo-float w-full h-full flex items-center justify-center">
+              <div className={`w-full h-full flex items-center justify-center ${isFloating ? 'sirin-logo-float' : ''}`}>
                 {svgContent ? (
                   <div 
                     className="w-full h-full flex items-center justify-center [&_svg]:w-full [&_svg]:h-full [&_svg]:drop-shadow-[0_15px_35px_rgba(0,0,0,0.06)]"
