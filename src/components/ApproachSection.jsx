@@ -20,12 +20,12 @@ const APPROACH_LOGO_STATE = {
 function buildLogoTransform(state) {
   return `
     translate(-50%, -50%)
-    scale(${state.scale})
     perspective(1200px)
     rotateY(${state.rotateY}deg)
     rotateX(${state.rotateX}deg)
     skewX(${state.skewX}deg)
     scaleX(${state.scaleX})
+    scale(${state.scale})
   `;
 }
 
@@ -38,7 +38,7 @@ export default function ApproachSection({ isLogoVisible }) {
     if (isLogoVisible) {
       const timer = setTimeout(() => {
         setIsFloating(true);
-      }, 50);
+      }, 200);
       return () => clearTimeout(timer);
     } else {
       setIsFloating(false);
@@ -207,7 +207,7 @@ export default function ApproachSection({ isLogoVisible }) {
             }}
           >
             <div className="sirin-logo-visual w-full h-full flex items-center justify-center">
-              <div className={`w-full h-full flex items-center justify-center ${isFloating ? 'sirin-logo-float' : ''}`}>
+              <div className={`sirin-logo-float w-full h-full flex items-center justify-center ${!isFloating ? 'no-float' : ''}`}>
                 {svgContent ? (
                   <div 
                     className="w-full h-full flex items-center justify-center [&_svg]:w-full [&_svg]:h-full [&_svg]:drop-shadow-[0_15px_35px_rgba(0,0,0,0.06)]"

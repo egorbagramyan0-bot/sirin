@@ -98,6 +98,7 @@ html.lenis, html.lenis body {
 /* Sirin Logo CSS Levitation & Styling */
 .sirin-logo-wrapper {
   will-change: transform, left, top, opacity;
+  transform-origin: center center;
 }
 
 .sirin-logo-visual {
@@ -187,3 +188,6 @@ html.lenis, html.lenis body {
   animation: none !important;
 }
 
+.sirin-logo-float.is-handoff {
+  animation-play-state: paused !important;
+}

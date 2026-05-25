@@ -22,12 +22,12 @@ const APPROACH_LOGO_STATE = {
 function buildLogoTransform(state) {
   return `
     translate(-50%, -50%)
-    scale(${state.scale})
     perspective(1200px)
     rotateY(${state.rotateY}deg)
     rotateX(${state.rotateX}deg)
     skewX(${state.skewX}deg)
     scaleX(${state.scaleX})
+    scale(${state.scale})
   `;
 }
 
@@ -178,20 +178,6 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDi
       autoAlpha: isHandoffToStatic ? 0 : state.autoAlpha,
       duration: duration,
       ease: 'power3.inOut',
-      onStart: () => {
-        const floatEl = wrapper?.querySelector('.sirin-logo-float');
-        if (floatEl) {
-          floatEl.classList.add('no-float');
-        }
-      },
-      onComplete: () => {
-        if (!isHandoffToStatic) {
-          const floatEl = wrapper?.querySelector('.sirin-logo-float');
-          if (floatEl) {
-            floatEl.classList.remove('no-float');
-          }
-        }
-      }
     });
 
     // 3. Анимируем 3D свойства на animObject
