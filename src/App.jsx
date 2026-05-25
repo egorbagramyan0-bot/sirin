@@ -80,16 +80,16 @@ export default function App() {
     }
   };
 
-  const goToSection = (index) => {
+  const goToSection = (index, options = { source: 'scroll' }) => {
     if (index < 0 || index > 4) return;
     if (index === activeIndexRef.current) return;
     if (isAnimatingRef.current) return;
 
-    if (index === 3) {
+    if (index === 3 && options.source !== 'scroll') {
       goToPortfolio();
       return;
     }
-    if (index === 4) {
+    if (index === 4 && options.source !== 'scroll') {
       goToContacts();
       return;
     }
@@ -100,7 +100,9 @@ export default function App() {
     if (index < 3) {
       setIsLogoHidden(false);
     } else {
-      setIsLogoHidden(true);
+      if (options.source !== 'scroll') {
+        setIsLogoHidden(true);
+      }
     }
 
     // Handoff logic for non-adjacent and adjacent jumps
@@ -133,25 +135,25 @@ export default function App() {
   const handleNavClick = (targetIndex) => {
     if (activeIndexRef.current >= 3 && targetIndex === 1) {
       setIsLogoHidden(false);
-      goToSection(1);
+      goToSection(1, { source: 'nav' });
     } else if (activeIndexRef.current >= 3 && targetIndex === 0) {
       setIsLogoHidden(false);
-      goToSection(0);
+      goToSection(0, { source: 'nav' });
     } else if (targetIndex === 3) {
       goToPortfolio();
     } else if (targetIndex === 4) {
       goToContacts();
     } else {
-      goToSection(targetIndex);
+      goToSection(targetIndex, { source: 'nav' });
     }
   };
 
   const handleLogoHomeClick = () => {
     if (activeIndexRef.current >= 3) {
       setIsLogoHidden(false);
-      goToSection(0);
+      goToSection(0, { source: 'nav' });
     } else {
-      goToSection(0);
+      goToSection(0, { source: 'nav' });
     }
   };
 
@@ -188,13 +190,13 @@ export default function App() {
       onUp: () => {
         if (isAnimatingRef.current) return;
         if (activeIndexRef.current > 0) {
-          goToSection(activeIndexRef.current - 1);
+          goToSection(activeIndexRef.current - 1, { source: 'scroll' });
         }
       },
       onDown: () => {
         if (isAnimatingRef.current) return;
         if (activeIndexRef.current < 4) {
-          goToSection(activeIndexRef.current + 1);
+          goToSection(activeIndexRef.current + 1, { source: 'scroll' });
         }
       },
     });
@@ -231,7 +233,7 @@ export default function App() {
         {sections.map((sec, idx) => (
           <button
             key={sec.id}
-            onClick={() => goToSection(idx)}
+            onClick={() => goToSection(idx, { source: 'nav' })}
             className="group flex items-center justify-end gap-3 relative cursor-pointer bg-transparent border-none p-0"
             aria-label={`Scroll to ${sec.label}`}
           >
@@ -259,7 +261,7 @@ export default function App() {
         <AboutSection />
         <ApproachSection isLogoVisible={isHandoffToStatic && !isLogoHidden} />
         <PortfolioCarousel />
-        <Footer onNavigate={goToSection} />
+        <Footer onNavigate={handleNavClick} />
       </div>
     </div>
   );
