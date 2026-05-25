@@ -50,33 +50,10 @@ export default function ApproachSection({ isLogoVisible }) {
     return () => media.removeEventListener('change', listener);
   }, []);
 
-  const steps = [
-    {
-      num: '01',
-      title: 'Разбор',
-      desc: 'Изучаем бизнес, конкурентов, аудиторию, услуги и то, какое действие должен совершить клиент.',
-    },
-    {
-      num: '02',
-      title: 'Прототип и дизайн',
-      desc: 'Собираем структуру страниц, продумываем блоки, визуальный стиль, акценты и путь пользователя.',
-    },
-    {
-      num: '03',
-      title: 'Разработка',
-      desc: 'Верстаем адаптивный сайт, настраиваем анимации, формы, скорость и корректную работу на устройствах.',
-    },
-    {
-      num: '04',
-      title: 'Запуск',
-      desc: 'Подключаем домен, хостинг, аналитику, проверяем сайт и готовим его к рекламе и трафику.',
-    },
-  ];
-
   return (
     <section 
       id="approach" 
-      className="relative w-full h-screen flex items-center justify-center px-8 md:px-16 bg-white border-t border-brand-light-gray flex-shrink-0 overflow-hidden"
+      className="pricing-section relative w-full h-screen flex items-center justify-center px-8 md:px-16 bg-white border-t border-brand-light-gray flex-shrink-0 overflow-hidden"
     >
       <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         {/* Left Column - Spacer for Floating Animated Logo */}
@@ -85,36 +62,107 @@ export default function ApproachSection({ isLogoVisible }) {
         </div>
 
         {/* Right Column - Content */}
-        <div className="flex flex-col justify-center max-w-xl order-1 lg:order-2 ml-auto">
-          <span className="font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-6 block">
-            НАШ ПРОЦЕСС
+        <div className="pricing-content flex flex-col justify-center max-w-xl order-1 lg:order-2 ml-auto">
+          <span className="section-kicker font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-3 block">
+            ЦЕНЫ
           </span>
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-brand-black leading-tight mb-8">
-            Смысл. Дизайн.<br />Запуск.
+          <h2 className="font-display text-xl sm:text-2xl md:text-3xl font-light tracking-tight text-brand-black leading-tight mb-3">
+            Стоимость разработки сайта
           </h2>
-          <p className="font-sans text-xs md:text-sm text-brand-gray leading-relaxed mb-12">
-            Мы не просто рисуем красивый экран. Сначала собираем логику сайта, потом визуал, затем доводим проект до рабочей версии и запускаем.
+          <p className="font-sans text-[11px] md:text-xs text-brand-gray leading-relaxed mb-6">
+            Выберите формат под задачу: от быстрого лендинга до полноценного многостраничного сайта с аналитикой и подготовкой к рекламе.
           </p>
 
-          <hr className="border-brand-silver/50 mb-10 w-24" />
-
-          {/* Process Timeline Steps */}
-          <div className="flex flex-col gap-8">
-            {steps.map((step, idx) => (
-              <div key={idx} className="flex gap-6 items-start">
-                <div className="flex-shrink-0 w-12 h-12 rounded-full border border-brand-silver/60 flex items-center justify-center text-brand-gray font-display text-xs font-semibold">
-                  {step.num}
-                </div>
-                <div>
-                  <h3 className="font-display font-medium text-xs md:text-sm tracking-[0.1em] text-brand-black mb-1.5 uppercase">
-                    {step.title}
+          <div className="pricing-cards flex flex-col gap-3.5 w-full">
+            {/* Card 1 */}
+            <article className="pricing-card border border-black/8 hover:border-black/15 rounded-[20px] p-4.5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(0,0,0,0.02)] bg-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div className="flex-1">
+                <div className="flex justify-between items-baseline gap-2">
+                  <h3 className="font-display font-medium text-xs md:text-sm text-brand-black tracking-wide uppercase">
+                    Одностраничный лендинг
                   </h3>
-                  <p className="font-sans text-xs md:text-sm text-brand-gray leading-relaxed">
-                    {step.desc}
-                  </p>
+                  <span className="font-display font-semibold text-xs md:text-sm text-brand-black flex-shrink-0">
+                    от 35 000 ₽
+                  </span>
+                </div>
+                <p className="font-sans text-[10px] md:text-[11px] text-brand-gray mt-1 leading-relaxed max-w-md">
+                  Сайт для презентации услуги, продукта, студии или локального бизнеса. Подходит для рекламы, заявок и быстрого запуска.
+                </p>
+                <div className="flex flex-wrap gap-x-2.5 gap-y-0.5 text-[9px] text-brand-gray/80 font-sans mt-2">
+                  {['структура страницы', 'адаптивный дизайн', 'верстка', 'базовая анимация', 'форма заявки / кнопки связи', 'подготовка к запуску'].map((feat, i) => (
+                    <span key={i} className="flex items-center gap-1">
+                      <span className="w-1 h-1 rounded-full bg-brand-gray/40"></span>
+                      {feat}
+                    </span>
+                  ))}
                 </div>
               </div>
-            ))}
+              <div className="flex-shrink-0 w-full sm:w-auto text-right">
+                <button className="w-full sm:w-auto px-4 py-2 rounded-full bg-brand-black text-white hover:bg-brand-graphite transition-all duration-300 text-[9px] font-semibold tracking-wider uppercase cursor-pointer">
+                  Обсудить лендинг
+                </button>
+              </div>
+            </article>
+
+            {/* Card 2 */}
+            <article className="pricing-card border border-black/8 hover:border-black/15 rounded-[20px] p-4.5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(0,0,0,0.02)] bg-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div className="flex-1">
+                <div className="flex justify-between items-baseline gap-2">
+                  <h3 className="font-display font-medium text-xs md:text-sm text-brand-black tracking-wide uppercase">
+                    Многостраничный сайт
+                  </h3>
+                  <span className="font-display font-semibold text-xs md:text-sm text-brand-black flex-shrink-0">
+                    от 70 000 ₽
+                  </span>
+                </div>
+                <p className="font-sans text-[10px] md:text-[11px] text-brand-gray mt-1 leading-relaxed max-w-md">
+                  Сайт для компании, студии или бизнеса с несколькими разделами: услуги, портфолио, о компании, контакты и дополнительные страницы.
+                </p>
+                <div className="flex flex-wrap gap-x-2.5 gap-y-0.5 text-[9px] text-brand-gray/80 font-sans mt-2">
+                  {['проектирование структуры сайта', 'дизайн ключевых страниц', 'адаптивная верстка', 'базовая SEO-структура', 'формы заявок и контакты', 'подготовка к публикации'].map((feat, i) => (
+                    <span key={i} className="flex items-center gap-1">
+                      <span className="w-1 h-1 rounded-full bg-brand-gray/40"></span>
+                      {feat}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="flex-shrink-0 w-full sm:w-auto text-right">
+                <button className="w-full sm:w-auto px-4 py-2 rounded-full bg-brand-black text-white hover:bg-brand-graphite transition-all duration-300 text-[9px] font-semibold tracking-wider uppercase cursor-pointer">
+                  Обсудить сайт
+                </button>
+              </div>
+            </article>
+
+            {/* Card 3 */}
+            <article className="pricing-card border border-black/8 hover:border-black/15 rounded-[20px] p-4.5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_20px_rgba(0,0,0,0.02)] bg-white flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div className="flex-1">
+                <div className="flex justify-between items-baseline gap-2">
+                  <h3 className="font-display font-medium text-xs md:text-sm text-brand-black tracking-wide uppercase">
+                    Подключение Яндекс Метрики
+                  </h3>
+                  <span className="font-display font-semibold text-xs md:text-sm text-brand-black flex-shrink-0">
+                    от 5 000 ₽
+                  </span>
+                </div>
+                <p className="font-sans text-[10px] md:text-[11px] text-brand-gray mt-1 leading-relaxed max-w-md">
+                  Настройка аналитики для отслеживания посещений, заявок, кликов по кнопкам и эффективности рекламы.
+                </p>
+                <div className="flex flex-wrap gap-x-2.5 gap-y-0.5 text-[9px] text-brand-gray/80 font-sans mt-2">
+                  {['создание или подключение счетчика', 'установка кода на сайт', 'настройка целей', 'проверка корректной работы', 'базовая подготовка к рекламе'].map((feat, i) => (
+                    <span key={i} className="flex items-center gap-1">
+                      <span className="w-1 h-1 rounded-full bg-brand-gray/40"></span>
+                      {feat}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="flex-shrink-0 w-full sm:w-auto text-right">
+                <button className="w-full sm:w-auto px-4 py-2 rounded-full bg-brand-black text-white hover:bg-brand-graphite transition-all duration-300 text-[9px] font-semibold tracking-wider uppercase cursor-pointer">
+                  Подключить Метрику
+                </button>
+              </div>
+            </article>
           </div>
         </div>
       </div>
@@ -134,7 +182,7 @@ export default function ApproachSection({ isLogoVisible }) {
 
         return (
           <div 
-            className="sirin-logo-wrapper absolute pointer-events-none z-40 flex items-center justify-center select-none"
+            className="approach-static-logo-wrap sirin-logo-wrapper absolute pointer-events-none z-40 flex items-center justify-center select-none"
             style={{
               left: approachState.left,
               top: approachState.top,
