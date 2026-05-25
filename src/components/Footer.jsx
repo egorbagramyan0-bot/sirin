@@ -72,28 +72,18 @@ export default function Footer({ onNavigate }) {
             </h3>
             <ul className="flex flex-col gap-2 md:gap-3.5">
               <li>
-                <button type="button" onClick={(e) => handleNav(e, 3)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
-                  Портфолио
-                </button>
-              </li>
-              <li>
-                <button type="button" onClick={(e) => handleNav(e, 1)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
-                  Услуги
-                </button>
-              </li>
-              <li>
                 <button type="button" onClick={(e) => handleNav(e, 1)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
                   О студии
                 </button>
               </li>
               <li>
                 <button type="button" onClick={(e) => handleNav(e, 2)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
-                  Процесс
+                  Цены
                 </button>
               </li>
               <li>
-                <button type="button" onClick={(e) => handleNav(e, 2)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
-                  Подход
+                <button type="button" onClick={(e) => handleNav(e, 3)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
+                  Портфолио
                 </button>
               </li>
             </ul>

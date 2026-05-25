@@ -109,11 +109,11 @@ export default function App() {
   }, []);
 
   const sections = [
-    { id: 'hero', label: 'Intro' },
-    { id: 'about', label: 'About' },
-    { id: 'approach', label: 'Approach' },
-    { id: 'portfolio', label: 'Work' },
-    { id: 'footer', label: 'Contact' },
+    { id: 'hero', label: 'Главная' },
+    { id: 'about', label: 'О студии' },
+    { id: 'approach', label: 'Цены' },
+    { id: 'portfolio', label: 'Портфолио' },
+    { id: 'footer', label: 'Контакты' },
   ];
 
   return (

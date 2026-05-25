@@ -26,39 +26,25 @@ export default function Header({ onNavigate }) {
       {/* Navigation */}
       <nav className="hidden md:flex items-center gap-12">
         <a 
-          href="#portfolio" 
-          onClick={(e) => handleClick(e, 3)}
-          className="text-white/80 hover:text-white transition-colors text-xs font-medium tracking-[0.25em]"
-        >
-          ПОРТФОЛИО
-        </a>
-        <a 
           href="#about" 
           onClick={(e) => handleClick(e, 1)}
-          className="text-white/80 hover:text-white transition-colors text-xs font-medium tracking-[0.25em]"
-        >
-          УСЛУГИ
-        </a>
-        <a 
-          href="#about" 
-          onClick={(e) => handleClick(e, 1)}
-          className="text-white/80 hover:text-white transition-colors text-xs font-medium tracking-[0.25em]"
+          className="text-white/80 hover:text-white transition-colors text-xs font-medium tracking-[0.25em] uppercase"
         >
           О СТУДИИ
         </a>
         <a 
-          href="#approach" 
+          href="#pricing" 
           onClick={(e) => handleClick(e, 2)}
-          className="text-white/80 hover:text-white transition-colors text-xs font-medium tracking-[0.25em]"
+          className="text-white/80 hover:text-white transition-colors text-xs font-medium tracking-[0.25em] uppercase"
         >
-          ПРОЦЕСС
+          ЦЕНЫ
         </a>
         <a 
-          href="#footer" 
-          onClick={(e) => handleClick(e, 4)}
-          className="text-white/80 hover:text-white transition-colors text-xs font-medium tracking-[0.25em]"
+          href="#portfolio" 
+          onClick={(e) => handleClick(e, 3)}
+          className="text-white/80 hover:text-white transition-colors text-xs font-medium tracking-[0.25em] uppercase"
         >
-          ПОДХОД
+          ПОРТФОЛИО
         </a>
       </nav>
 
