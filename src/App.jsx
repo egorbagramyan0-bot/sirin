@@ -119,7 +119,11 @@ export default function App() {
   return (
     <div id="app-container" className="relative w-full h-screen overflow-hidden bg-white">
       {/* fixed global layers */}
-      <Header onNavigate={goToSection} />
+      <Header 
+        onNavigate={goToSection} 
+        onPortfolioFromHero={goToPortfolioFromHero}
+        activeIndex={activeIndex}
+      />
       <AnimatedSirinLogo 
         activeIndex={activeIndex} 
         isHandoffToStatic={isHandoffToStatic} 
