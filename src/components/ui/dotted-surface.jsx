@@ -42,7 +42,7 @@ export function DottedSurface({ className, ...props }) {
 
     container.appendChild(renderer.domElement);
 
-    // Create particles
+        // Create particles
     const positions = [];
     const colors = [];
 
@@ -57,9 +57,8 @@ export function DottedSurface({ className, ...props }) {
 
         positions.push(x, y, z);
         
-        // Since background of Hero is white, we always want dark gray / graphite dots
-        // regardless of OS theme. We push (0.11, 0.11, 0.12) to match brand-graphite.
-        colors.push(0.11, 0.11, 0.12);
+        // Push black to make dots darker on white background
+        colors.push(0.0, 0.0, 0.0);
       }
     }
 
@@ -74,7 +73,7 @@ export function DottedSurface({ className, ...props }) {
       size: isMobile ? 6 : 8,
       vertexColors: true,
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.95,
       sizeAttenuation: true,
     });
 
@@ -85,7 +84,7 @@ export function DottedSurface({ className, ...props }) {
     let count = 0;
     let animationId;
 
-    // Animation function with slow, smooth waves to look premium
+    // Animation function with slightly faster but smooth waves
     const animate = () => {
       animationId = requestAnimationFrame(animate);
 
@@ -98,8 +97,6 @@ export function DottedSurface({ className, ...props }) {
           const index = i * 3;
 
           // Animate Y position with sine waves
-          // We use amplitude 25 (from 50 in demo) and speed 0.02 (from 0.1 in demo)
-          // to make the motion extremely slow, smooth and premium
           positions[index + 1] =
             Math.sin((ix + count) * 0.25) * 25 +
             Math.sin((iy + count) * 0.4) * 25;
@@ -110,7 +107,7 @@ export function DottedSurface({ className, ...props }) {
 
       positionAttribute.needsUpdate = true;
       renderer.render(scene, camera);
-      count += 0.02;
+      count += 0.045;
     };
 
     // Handle window resize
