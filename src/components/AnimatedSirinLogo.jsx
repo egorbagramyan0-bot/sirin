@@ -7,8 +7,8 @@ const SECTION_LOGO_SCALE = 0.94;
 const SECTION_LOGO_ROTATE_X = 4;
 const SECTION_LOGO_SCALE_X = 0.92;
 
-const APPROACH_LOGO_STATE = {
-  left: "20%",
+const PRICING_LOGO_STATE = {
+  left: "24%",
   top: "50%",
   width: SECTION_LOGO_SIZE,
   scale: SECTION_LOGO_SCALE,
@@ -84,14 +84,14 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDi
 
     // Resolve approach state dynamically
     const approachState = {
-      ...APPROACH_LOGO_STATE,
-      left: isMobile ? "20%" : APPROACH_LOGO_STATE.left,
-      top: isMobile ? "12%" : APPROACH_LOGO_STATE.top,
-      scale: isMobile ? 0.32 : APPROACH_LOGO_STATE.scale,
-      rotateY: isMobile ? 0 : APPROACH_LOGO_STATE.rotateY,
-      rotateX: isMobile ? 0 : APPROACH_LOGO_STATE.rotateX,
-      skewX: isMobile ? 0 : APPROACH_LOGO_STATE.skewX,
-      scaleX: isMobile ? 1 : APPROACH_LOGO_STATE.scaleX,
+      ...PRICING_LOGO_STATE,
+      left: isMobile ? "20%" : PRICING_LOGO_STATE.left,
+      top: isMobile ? "12%" : PRICING_LOGO_STATE.top,
+      scale: isMobile ? 0.32 : PRICING_LOGO_STATE.scale,
+      rotateY: isMobile ? 0 : PRICING_LOGO_STATE.rotateY,
+      rotateX: isMobile ? 0 : PRICING_LOGO_STATE.rotateX,
+      skewX: isMobile ? 0 : PRICING_LOGO_STATE.skewX,
+      scaleX: isMobile ? 1 : PRICING_LOGO_STATE.scaleX,
     };
 
     // Explicit states configuration

@@ -119,45 +119,57 @@ export default function App() {
       const fixedWrapper = document.querySelector('.sirin-logo-wrapper.fixed');
       const fixedVisual = document.querySelector('.sirin-logo-wrapper.fixed .sirin-logo-visual');
       const fixedFloat = document.querySelector('.sirin-logo-wrapper.fixed .sirin-logo-float');
+      const staticVisual = document.querySelector('.approach-static-logo-wrap .sirin-logo-visual');
+      const staticWrapper = document.querySelector('.approach-static-logo-wrap');
 
-      if (fixedWrapper && fixedVisual) {
+      if (fixedWrapper && fixedVisual && staticVisual && staticWrapper && staticFloat) {
         if (fixedFloat) {
           fixedFloat.classList.add('is-handoff');
         }
 
-        // Set fixed logo wrapper to the approach coordinates and make visible
+        // Set fixed logo wrapper to the approach coordinates, and make visible but opacity 0 (so we can measure it)
         const isMobile = window.matchMedia('(max-width: 768px)').matches;
         gsap.killTweensOf(fixedWrapper);
         gsap.set(fixedWrapper, {
-          left: '20%',
+          left: isMobile ? '20%' : '24%',
           top: isMobile ? '12%' : '50%',
           width: 'clamp(320px, 30vw, 560px)',
-          autoAlpha: 1
+          opacity: 0,
+          visibility: 'visible'
         });
 
-        // Measure both rects
-        const staticVisual = document.querySelector('.approach-static-logo-wrap .sirin-logo-visual');
-        if (staticVisual) {
-          const staticRect = staticVisual.getBoundingClientRect();
-          const fixedRect = fixedVisual.getBoundingClientRect();
+        // Measure actual float containers (which include translateY translation)
+        const staticRect = staticFloat.getBoundingClientRect();
+        const fixedRect = fixedFloat.getBoundingClientRect();
 
-          const deltaX = staticRect.left - fixedRect.left;
-          const deltaY = staticRect.top - fixedRect.top;
+        const deltaX = staticRect.left - fixedRect.left;
+        const deltaY = staticRect.top - fixedRect.top;
 
-          // Apply compensation to fixed logo visual
-          gsap.set(fixedVisual, {
-            x: deltaX,
-            y: deltaY
-          });
+        // Apply compensation to fixed logo visual
+        gsap.set(fixedVisual, {
+          x: deltaX,
+          y: deltaY
+        });
 
-          // Switch the handoff state to false (shows fixed, hides static in React)
-          setIsHandoffToStatic(false);
+        // Show fixed logo wrapper (opacity 1) and hide static logo wrapper in the same frame
+        gsap.set(fixedWrapper, {
+          opacity: 1,
+          visibility: 'visible'
+        });
+        gsap.set(staticWrapper, {
+          opacity: 0,
+          visibility: 'hidden'
+        });
 
-          // Animate compensation away on the fixed logo visual
+        // Switch the handoff state to false (shows fixed, hides static in React)
+        setIsHandoffToStatic(false);
+
+        // Animate compensation away on the fixed logo visual
+        if (Math.abs(deltaX) > 0.5 || Math.abs(deltaY) > 0.5) {
           gsap.to(fixedVisual, {
             x: 0,
             y: 0,
-            duration: 0.2,
+            duration: 0.18,
             ease: "power2.out",
             onComplete: () => {
               if (fixedFloat) {
@@ -166,7 +178,12 @@ export default function App() {
             }
           });
         } else {
-          setIsHandoffToStatic(false);
+          gsap.set(fixedVisual, { x: 0, y: 0 });
+          requestAnimationFrame(() => {
+            if (fixedFloat) {
+              fixedFloat.classList.remove('is-handoff');
+            }
+          });
         }
       } else {
         setIsHandoffToStatic(false);
@@ -197,14 +214,25 @@ export default function App() {
           const fixedWrapper = document.querySelector('.sirin-logo-wrapper.fixed');
           const fixedFloat = document.querySelector('.sirin-logo-wrapper.fixed .sirin-logo-float');
           const staticFloat = document.querySelector('.approach-static-logo-wrap .sirin-logo-float');
+          const staticWrapper = document.querySelector('.approach-static-logo-wrap');
 
           if (fixedFloat) {
             fixedFloat.classList.add('is-handoff');
           }
+          if (staticFloat) {
+            staticFloat.classList.add('is-handoff');
+          }
 
-          if (fixedVisual && staticVisual && fixedWrapper) {
-            const fixedRect = fixedVisual.getBoundingClientRect();
-            const staticRect = staticVisual.getBoundingClientRect();
+          if (fixedVisual && staticVisual && fixedWrapper && staticWrapper && fixedFloat && staticFloat) {
+            // First, make static logo wrapper visible but opacity 0 to layout it correctly for client rects
+            gsap.set(staticWrapper, {
+              visibility: 'visible',
+              opacity: 0
+            });
+
+            // Measure actual float containers (which include translateY translation)
+            const fixedRect = fixedFloat.getBoundingClientRect();
+            const staticRect = staticFloat.getBoundingClientRect();
 
             const deltaX = fixedRect.left - staticRect.left;
             const deltaY = fixedRect.top - staticRect.top;
@@ -215,29 +243,46 @@ export default function App() {
               y: deltaY
             });
 
-            // Hide fixed logo wrapper
+            // Show static logo wrapper, hide fixed logo wrapper in the same frame
+            gsap.set(staticWrapper, {
+              opacity: 1,
+              visibility: 'visible'
+            });
             gsap.set(fixedWrapper, {
-              autoAlpha: 0
+              opacity: 0,
+              visibility: 'hidden'
             });
 
             // Toggle handoff state to true (shows static logo in React)
             setIsHandoffToStatic(true);
 
             // Animate compensation away on static logo visual
-            gsap.to(staticVisual, {
-              x: 0,
-              y: 0,
-              duration: 0.2,
-              ease: "power2.out",
-              onComplete: () => {
+            if (Math.abs(deltaX) > 0.5 || Math.abs(deltaY) > 0.5) {
+              gsap.to(staticVisual, {
+                x: 0,
+                y: 0,
+                duration: 0.18,
+                ease: "power2.out",
+                onComplete: () => {
+                  if (fixedFloat) {
+                    fixedFloat.classList.remove('is-handoff');
+                  }
+                  if (staticFloat) {
+                    staticFloat.classList.remove('is-handoff');
+                  }
+                }
+              });
+            } else {
+              gsap.set(staticVisual, { x: 0, y: 0 });
+              requestAnimationFrame(() => {
                 if (fixedFloat) {
                   fixedFloat.classList.remove('is-handoff');
                 }
                 if (staticFloat) {
                   staticFloat.classList.remove('is-handoff');
                 }
-              }
-            });
+              });
+            }
           } else {
             setIsHandoffToStatic(true);
           }
