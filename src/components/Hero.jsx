@@ -1,4 +1,4 @@
-import React from 'react';
+import { DottedSurface } from "@/components/ui/dotted-surface";
 
 export default function Hero({ onPortfolioClick }) {
   return (
@@ -6,8 +6,11 @@ export default function Hero({ onPortfolioClick }) {
       id="hero" 
       className="relative w-full h-screen flex flex-col justify-between px-8 md:px-16 py-12 bg-white overflow-hidden mono-grid select-none flex-shrink-0"
     >
+      {/* Subtle Dotted Surface background effect */}
+      <DottedSurface className="absolute inset-0 z-0 opacity-[0.22] pointer-events-none" />
+
       {/* Background Architectural Geometry (Circles & Lines) */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         {/* Large Concentric Circles */}
         <div className="w-[600px] h-[600px] rounded-full border border-brand-black/[0.03] flex items-center justify-center md:animate-[spin_120s_linear_infinite]">
           <div className="w-[450px] h-[450px] rounded-full border border-dashed border-brand-black/[0.04] flex items-center justify-center">
@@ -21,7 +24,7 @@ export default function Hero({ onPortfolioClick }) {
       </div>
 
       {/* Wordmark - aligned precisely with the symbol center (centered) */}
-      <div className="absolute top-[74%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
+      <div className="absolute top-[74%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none">
         <img 
           src="/sirin_wordmark_only.svg" 
           alt="SIRIN" 
