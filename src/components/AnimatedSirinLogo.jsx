@@ -31,11 +31,12 @@ function buildLogoTransform(state) {
   `;
 }
 
-export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDirectPortfolioJump }) {
+export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDirectPortfolioJump, isLogoHidden }) {
   const wrapperRef = useRef(null);
   const containerRef = useRef(null);
   const [svgContent, setSvgContent] = useState('');
   const prevHandoffRef = useRef(isHandoffToStatic);
+  const prevActiveIndexRef = useRef(activeIndex);
 
   // Refs to track current transform state across renders
   const currentScaleRef = useRef(1);
@@ -58,6 +59,16 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDi
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
 
+    if (isLogoHidden) {
+      gsap.to(wrapper, {
+        autoAlpha: 0,
+        duration: 0.35,
+        ease: 'power2.out',
+      });
+      prevActiveIndexRef.current = activeIndex;
+      return;
+    }
+
     if (isDirectPortfolioJump) {
       gsap.to(wrapper, {
         autoAlpha: 0,
@@ -65,6 +76,7 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDi
         duration: 0.45,
         ease: 'power2.out',
       });
+      prevActiveIndexRef.current = activeIndex;
       return;
     }
 
@@ -117,16 +129,30 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDi
       state = logoStates.approach;
     }
 
+    const prevActiveIndex = prevActiveIndexRef.current;
+    prevActiveIndexRef.current = activeIndex;
+
+    const isJumpFromBottomToTop = prevActiveIndex >= 3 && activeIndex < 2;
+
     const prevHandoff = prevHandoffRef.current;
     prevHandoffRef.current = isHandoffToStatic;
 
     const isReverseHandoff = prevHandoff && !isHandoffToStatic;
-
     const isHandoffChange = activeIndex === 2 && isHandoffToStatic;
-    const duration = isHandoffChange ? 0 : (isReverseHandoff ? 1.1 : 1.3);
 
-    if (isReverseHandoff) {
+    let duration = 1.3;
+    if (isHandoffChange) {
+      duration = 0;
+    } else if (isJumpFromBottomToTop) {
+      duration = activeIndex === 0 ? 1.15 : 1.1;
+    } else if (isReverseHandoff) {
+      duration = 1.1;
+    }
+
+    if (isJumpFromBottomToTop || isReverseHandoff) {
       // 1. Поставить fixed logo в точное approach-состояние
+      gsap.killTweensOf(wrapper);
+      
       gsap.set(wrapper, {
         left: approachState.left,
         top: approachState.top,
@@ -181,7 +207,7 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDi
       }
     });
 
-  }, [activeIndex, svgContent, isHandoffToStatic, isDirectPortfolioJump]);
+  }, [activeIndex, svgContent, isHandoffToStatic, isDirectPortfolioJump, isLogoHidden]);
 
   // Independent eye blinking loop
   useEffect(() => {

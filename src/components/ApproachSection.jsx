@@ -191,6 +191,7 @@ export default function ApproachSection({ isLogoVisible }) {
               opacity: isLogoVisible ? 1 : 0,
               visibility: isLogoVisible ? 'visible' : 'hidden',
               pointerEvents: 'none',
+              transition: 'opacity 0.35s ease, visibility 0.35s ease',
             }}
           >
             <div className="sirin-logo-visual w-full h-full flex items-center justify-center">

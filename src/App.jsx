@@ -15,6 +15,7 @@ export default function App() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isHandoffToStatic, setIsHandoffToStatic] = useState(false);
   const [isDirectPortfolioJump, setIsDirectPortfolioJump] = useState(false);
+  const [isLogoHidden, setIsLogoHidden] = useState(false);
   const containerRef = useRef(null);
   const isAnimatingRef = useRef(false);
   const activeIndexRef = useRef(0);
@@ -23,23 +24,56 @@ export default function App() {
     activeIndexRef.current = activeIndex;
   }, [activeIndex]);
 
+  const goToPortfolio = () => {
+    if (isAnimatingRef.current) return;
+    if (activeIndexRef.current === 3) return;
+    isAnimatingRef.current = true;
+
+    // 1. Hide logo on the spot (fixed or static)
+    setIsLogoHidden(true);
+
+    // 2. Wait 350ms for fade out, then transition scroll
+    setTimeout(() => {
+      gsap.to(containerRef.current, {
+        y: -3 * 100 + 'vh',
+        duration: 1.3,
+        ease: 'power3.inOut',
+        onComplete: () => {
+          isAnimatingRef.current = false;
+          setIsHandoffToStatic(true);
+        },
+      });
+
+      setActiveIndex(3);
+      activeIndexRef.current = 3;
+    }, 350);
+  };
+
   const goToSection = (index) => {
     if (index < 0 || index > 4) return;
     if (index === activeIndexRef.current) return;
     if (isAnimatingRef.current) return;
-    isAnimatingRef.current = true;
 
+    if (index === 3) {
+      goToPortfolio();
+      return;
+    }
+
+    isAnimatingRef.current = true;
     const from = activeIndexRef.current;
+
+    if (index < 3) {
+      setIsLogoHidden(false);
+    } else {
+      setIsLogoHidden(true);
+    }
 
     // Handoff logic for non-adjacent and adjacent jumps
     if (index >= 3) {
-      // Going to Portfolio or Footer: fixed logo must be hidden, static logo visible in Approach
       setIsHandoffToStatic(true);
     } else if (index <= 1 && from >= 2) {
-      // Going back to Hero or About from Approach/Portfolio/Footer: show fixed logo, hide static
       setIsHandoffToStatic(false);
     } else if (from === 2 && index === 1) {
-      // Reverse handoff: leaving Approach going back to About
       setIsHandoffToStatic(false);
     }
 
@@ -59,6 +93,29 @@ export default function App() {
 
     setActiveIndex(index);
     activeIndexRef.current = index;
+  };
+
+  const handleNavClick = (targetIndex) => {
+    if (activeIndexRef.current >= 3 && targetIndex === 1) {
+      setIsLogoHidden(false);
+      goToSection(1);
+    } else if (activeIndexRef.current >= 3 && targetIndex === 0) {
+      setIsLogoHidden(false);
+      goToSection(0);
+    } else if (targetIndex === 3) {
+      goToPortfolio();
+    } else {
+      goToSection(targetIndex);
+    }
+  };
+
+  const handleLogoHomeClick = () => {
+    if (activeIndexRef.current >= 3) {
+      setIsLogoHidden(false);
+      goToSection(0);
+    } else {
+      goToSection(0);
+    }
   };
 
   const goToPortfolioFromHero = () => {
@@ -120,7 +177,8 @@ export default function App() {
     <div id="app-container" className="relative w-full h-screen overflow-hidden bg-white">
       {/* fixed global layers */}
       <Header 
-        onNavigate={goToSection} 
+        onNavigate={handleNavClick} 
+        onLogoClick={handleLogoHomeClick}
         onPortfolioFromHero={goToPortfolioFromHero}
         activeIndex={activeIndex}
       />
@@ -128,6 +186,7 @@ export default function App() {
         activeIndex={activeIndex} 
         isHandoffToStatic={isHandoffToStatic} 
         isDirectPortfolioJump={isDirectPortfolioJump}
+        isLogoHidden={isLogoHidden}
       />
 
       {/* Vertical Section Indicator (Right Side) */}
@@ -161,7 +220,7 @@ export default function App() {
       >
         <Hero onPortfolioClick={goToPortfolioFromHero} />
         <AboutSection />
-        <ApproachSection isLogoVisible={isHandoffToStatic} />
+        <ApproachSection isLogoVisible={isHandoffToStatic && !isLogoHidden} />
         <PortfolioCarousel />
         <Footer onNavigate={goToSection} />
       </div>

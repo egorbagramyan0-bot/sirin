@@ -150,3 +150,39 @@ html.lenis, html.lenis body {
   }
 }
 
+/* Header Mini Logo Button Styling */
+.header-logo-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 60;
+  width: 28px; /* Mobile width: 26-30px */
+  height: auto;
+  opacity: 1;
+  mix-blend-mode: difference;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  outline: none;
+}
+
+.header-logo-button:hover {
+  opacity: 0.65;
+  transform: scale(0.96);
+}
+
+.header-logo-button img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: invert(1);
+}
+
+@media (min-width: 768px) {
+  .header-logo-button {
+    width: 32px; /* Desktop width: 28-34px */
+  }
+}
+

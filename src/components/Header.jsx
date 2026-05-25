@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 
-export default function Header({ onNavigate, onPortfolioFromHero, activeIndex }) {
+export default function Header({ onNavigate, onLogoClick, onPortfolioFromHero, activeIndex }) {
   const headerRef = useRef(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -31,17 +31,23 @@ export default function Header({ onNavigate, onPortfolioFromHero, activeIndex })
         className="fixed top-0 left-0 w-full z-50 h-[76px] grid grid-cols-[1fr_auto_1fr] items-center px-6 md:px-11 pointer-events-auto"
       >
         {/* Left: Brand Logo */}
-        <a 
-          href="#" 
-          onClick={(e) => handleClick(e, 0)}
-          className="logo justify-self-start select-none mix-blend-difference"
+        <button 
+          onClick={() => {
+            setIsMobileMenuOpen(false);
+            if (onLogoClick) {
+              onLogoClick();
+            } else if (onNavigate) {
+              onNavigate(0);
+            }
+          }}
+          className="header-logo-button justify-self-start select-none"
+          aria-label="Вернуться на главный экран"
         >
           <img 
             src="/sirin_symbol_only.svg" 
             alt="SIRIN logo" 
-            className="h-6 md:h-8 object-contain invert" 
           />
-        </a>
+        </button>
 
         {/* Center: Desktop Nav Pill (visible at >= 900px screen width) */}
         <nav className="nav justify-self-center desktop-nav-only flex items-center gap-1.5 p-1.5 bg-white/68 border border-black/8 rounded-full backdrop-blur-[14px] shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
