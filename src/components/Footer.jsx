@@ -1,10 +1,23 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { gsap } from 'gsap';
 import { ArrowUpRight } from 'lucide-react';
 
 export default function Footer({ onNavigate }) {
+  const navigate = useNavigate();
+
   const handleNav = (e, index) => {
     e.preventDefault();
-    onNavigate?.(index);
+    if (index === 3) {
+      // Hide the fixed logo before transition
+      const fixedWrapper = document.querySelector('.sirin-logo-wrapper.fixed');
+      if (fixedWrapper) {
+        gsap.to(fixedWrapper, { autoAlpha: 0, duration: 0.25 });
+      }
+      navigate('/portfolio');
+    } else {
+      onNavigate?.(index);
+    }
   };
 
   return (
@@ -125,31 +138,47 @@ export default function Footer({ onNavigate }) {
         </div>
 
         {/* Right Column (CTA) */}
-        <div className="lg:col-span-4 flex flex-col justify-between gap-4 md:gap-8 lg:text-right lg:items-end">
+        <div className="lg:col-span-4 flex flex-col gap-6 md:gap-8 lg:items-end text-left lg:text-right">
           <div className="flex flex-col gap-2 md:gap-4">
             <h3 className="font-display font-semibold text-[9px] md:text-[10px] tracking-[0.25em] text-brand-gray uppercase">
               ОБСУДИМ ПРОЕКТ?
             </h3>
             <p className="font-display text-xs md:text-sm font-light leading-relaxed text-brand-silver">
-              Расскажите, какой сайт вам нужен.<br />Мы предложим структуру, стиль и понятный план запуска.
+              Расскажите, какой сайт нужен вашему бизнесу.<br />Мы предложим структуру, стиль и понятный план запуска.
             </p>
           </div>
 
-          <a 
-            href="mailto:hello@sirin.studio" 
-            className="inline-flex items-center gap-2.5 px-5 py-2.5 md:px-6 md:py-3 rounded-full bg-white text-brand-black hover:bg-white/90 transition-all duration-300 text-[11px] md:text-xs font-semibold tracking-widest shadow-lg"
-          >
-            НАЧАТЬ ПРОЕКТ
-            <ArrowUpRight className="w-3.5 h-3.5 stroke-[2]" />
-          </a>
+          <div className="flex flex-col gap-3 w-full sm:w-auto">
+            {/* Contact buttons */}
+            <div className="flex flex-wrap gap-3 lg:justify-end">
+              <a 
+                href="https://t.me/sirin_studio" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 text-xs font-semibold tracking-wider uppercase"
+              >
+                Telegram
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+              <a 
+                href="https://wa.me/79991234567" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 text-white hover:bg-white hover:text-black hover:border-white transition-all duration-300 text-xs font-semibold tracking-wider uppercase"
+              >
+                WhatsApp
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
 
-          <div className="flex flex-col gap-1 text-[12px] md:text-[13px] text-brand-gray">
-            <a href="mailto:hello@sirin.studio" className="hover:text-white transition-colors">
-              hello@sirin.studio
-            </a>
-            <a href="tel:+79991234567" className="hover:text-white transition-colors">
-              +7 (999) 123-45-67
-            </a>
+            <div className="flex flex-col gap-1 text-[12px] md:text-[13px] text-brand-gray pt-2">
+              <a href="mailto:hello@sirin.studio" className="hover:text-white transition-colors flex items-center gap-1.5 lg:justify-end">
+                hello@sirin.studio
+              </a>
+              <a href="tel:+79991234567" className="hover:text-white transition-colors flex items-center gap-1.5 lg:justify-end">
+                +7 (999) 123-45-67
+              </a>
+            </div>
           </div>
         </div>
 

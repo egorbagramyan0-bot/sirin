@@ -31,7 +31,7 @@ function buildLogoTransform(state) {
   `;
 }
 
-export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDirectPortfolioJump, isLogoHidden }) {
+export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isLogoHidden }) {
   const wrapperRef = useRef(null);
   const containerRef = useRef(null);
   const [svgContent, setSvgContent] = useState('');
@@ -63,17 +63,6 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDi
       gsap.to(wrapper, {
         autoAlpha: 0,
         duration: 0.35,
-        ease: 'power2.out',
-      });
-      prevActiveIndexRef.current = activeIndex;
-      return;
-    }
-
-    if (isDirectPortfolioJump) {
-      gsap.to(wrapper, {
-        autoAlpha: 0,
-        scale: 0.96,
-        duration: 0.45,
         ease: 'power2.out',
       });
       prevActiveIndexRef.current = activeIndex;
@@ -207,7 +196,7 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic, isDi
       }
     });
 
-  }, [activeIndex, svgContent, isHandoffToStatic, isDirectPortfolioJump, isLogoHidden]);
+  }, [activeIndex, svgContent, isHandoffToStatic, isLogoHidden]);
 
   // Independent eye blinking loop
   useEffect(() => {

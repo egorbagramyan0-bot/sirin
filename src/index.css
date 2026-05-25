@@ -191,3 +191,74 @@ html.lenis, html.lenis body {
 .sirin-logo-float.is-handoff {
   animation-play-state: paused !important;
 }
+
+.portfolio-bg-logo {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.portfolio-bg-logo img {
+  width: min(95vw, 1400px);
+  opacity: 0.045;
+  filter: blur(12px);
+  transform: scale(1.08);
+}
+
+/* Premium Page Transition Overlay */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #f8f8f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.page-transition-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  opacity: 0.7;
+}
+
+.page-transition-logo-wrap {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.page-transition-logo-wrap img {
+  width: clamp(90px, 10vw, 160px);
+  height: auto;
+  filter: drop-shadow(0 24px 48px rgba(0,0,0,0.08));
+  animation: transitionLogoFloat 4s ease-in-out infinite;
+}
+
+.page-transition-line {
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0,0,0,0.3), transparent);
+  transform-origin: center;
+}
+
+@keyframes transitionLogoFloat {
+  0% { transform: translateY(0) rotateZ(-0.4deg); }
+  50% { transform: translateY(-8px) rotateZ(0.4deg); }
+  100% { transform: translateY(0) rotateZ(-0.4deg); }
+}

@@ -1,9 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 
-export default function Header({ onNavigate, onLogoClick, onPortfolioFromHero, activeIndex }) {
+export default function Header({ 
+  onNavigate, 
+  onLogoClick, 
+  activeIndex, 
+  onTransitionToRoute, 
+  onTransitionToHomeSection 
+}) {
   const headerRef = useRef(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const isAtPortfolio = location.pathname === '/portfolio';
 
   useEffect(() => {
     // Animate header entry
@@ -13,15 +24,58 @@ export default function Header({ onNavigate, onLogoClick, onPortfolioFromHero, a
     );
   }, []);
 
-  const handleClick = (e, index) => {
-    if (onNavigate) {
-      e.preventDefault();
-      if (index === 3 && activeIndex === 0 && onPortfolioFromHero) {
-        onPortfolioFromHero();
+  const handleLinkClick = (e, index) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    
+    if (isAtPortfolio) {
+      if (onTransitionToHomeSection) {
+        onTransitionToHomeSection(index);
       } else {
-        onNavigate(index);
+        const hashes = { 0: '#hero', 1: '#about', 2: '#pricing', 3: '#contacts' };
+        navigate('/' + hashes[index]);
+      }
+    } else {
+      // If we are on homepage, trigger direct section scroll
+      if (index === 0) {
+        if (onLogoClick) onLogoClick();
+        else if (onNavigate) onNavigate(0);
+      } else {
+        if (onNavigate) onNavigate(index);
       }
     }
+  };
+
+  const handlePortfolioClick = (e) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    if (!isAtPortfolio) {
+      if (onTransitionToRoute) {
+        onTransitionToRoute('/portfolio');
+      } else {
+        // Hide the fixed logo before transition as requested
+        const fixedWrapper = document.querySelector('.sirin-logo-wrapper.fixed');
+        if (fixedWrapper) {
+          gsap.to(fixedWrapper, { autoAlpha: 0, duration: 0.25 });
+        }
+        navigate('/portfolio');
+      }
+    }
+  };
+
+  // Helper to determine active state class
+  const getActiveClass = (btnIndex) => {
+    const isActive = !isAtPortfolio && activeIndex === btnIndex;
+    return isActive 
+      ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
+      : 'bg-transparent text-black/62 hover:bg-black/5 hover:text-black';
+  };
+
+  const getLogoActiveClass = () => {
+    const isActive = !isAtPortfolio && activeIndex === 0;
+    return isActive 
+      ? 'bg-black shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
+      : 'bg-transparent hover:bg-black/5';
   };
 
   return (
@@ -30,91 +84,67 @@ export default function Header({ onNavigate, onLogoClick, onPortfolioFromHero, a
         ref={headerRef}
         className="fixed top-0 left-0 w-full z-50 h-[76px] grid grid-cols-[1fr_auto_1fr] items-center px-6 md:px-11 pointer-events-auto"
       >
-        {/* Left: Spacer to keep center nav centered */}
+        {/* Left: Spacer */}
         <div />
 
-        {/* Center: Desktop Nav Pill (visible at >= 900px screen width) */}
+        {/* Center: Desktop Nav Pill */}
         <nav className="nav justify-self-center desktop-nav-only flex items-center gap-1 p-1 bg-white/68 border border-black/8 rounded-full backdrop-blur-[14px] shadow-[0_10px_30px_rgba(0,0,0,0.04)]">
           
-          {/* Logo Button inside Nav Pill */}
+          {/* Logo Button */}
           <button 
-            onClick={() => {
-              if (onLogoClick) {
-                onLogoClick();
-              } else if (onNavigate) {
-                onNavigate(0);
-              }
-            }}
-            className={`nav-logo-button border-none transition-all duration-250 cursor-pointer ${
-              activeIndex === 0 
-                ? 'bg-black shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
-                : 'bg-transparent hover:bg-black/5'
-            }`}
+            onClick={(e) => handleLinkClick(e, 0)}
+            className={`nav-logo-button border-none transition-all duration-250 cursor-pointer ${getLogoActiveClass()}`}
             aria-label="На главный экран"
           >
             <img 
               src="/sirin_symbol_only.svg" 
               alt="SIRIN" 
-              className={activeIndex === 0 ? "invert" : ""}
+              className={(!isAtPortfolio && activeIndex === 0) ? "invert" : ""}
             />
           </button>
 
-          {/* Vertical divider */}
           <span className="nav-divider" />
 
-          {/* Navigation Items */}
+          {/* Nav Links */}
           <button 
-            onClick={(e) => handleClick(e, 1)}
-            className={`px-[18px] py-[10px] rounded-full text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-250 hover:-translate-y-[1px] cursor-pointer border-none bg-transparent ${
-              activeIndex === 1 
-                ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
-                : 'text-black/62 hover:bg-black/5 hover:text-black'
-            }`}
+            onClick={(e) => handleLinkClick(e, 1)}
+            className={`px-[18px] py-[10px] rounded-full text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-250 hover:-translate-y-[1px] cursor-pointer border-none ${getActiveClass(1)}`}
           >
             О студии
           </button>
           <button 
-            onClick={(e) => handleClick(e, 2)}
-            className={`px-[18px] py-[10px] rounded-full text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-250 hover:-translate-y-[1px] cursor-pointer border-none bg-transparent ${
-              activeIndex === 2 
-                ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
-                : 'text-black/62 hover:bg-black/5 hover:text-black'
-            }`}
+            onClick={(e) => handleLinkClick(e, 2)}
+            className={`px-[18px] py-[10px] rounded-full text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-250 hover:-translate-y-[1px] cursor-pointer border-none ${getActiveClass(2)}`}
           >
             Цены
           </button>
           <button 
-            onClick={(e) => handleClick(e, 3)}
-            className={`px-[18px] py-[10px] rounded-full text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-250 hover:-translate-y-[1px] cursor-pointer border-none bg-transparent ${
-              activeIndex === 3 
+            onClick={handlePortfolioClick}
+            className={`px-[18px] py-[10px] rounded-full text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-250 hover:-translate-y-[1px] cursor-pointer border-none ${
+              isAtPortfolio 
                 ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
-                : 'text-black/62 hover:bg-black/5 hover:text-black'
+                : 'bg-transparent text-black/62 hover:bg-black/5 hover:text-black'
             }`}
           >
             Портфолио
           </button>
           <button 
-            onClick={(e) => handleClick(e, 4)}
-            className={`px-[18px] py-[10px] rounded-full text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-250 hover:-translate-y-[1px] cursor-pointer border-none bg-transparent ${
-              activeIndex === 4 
-                ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
-                : 'text-black/62 hover:bg-black/5 hover:text-black'
-            }`}
+            onClick={(e) => handleLinkClick(e, 3)}
+            className={`px-[18px] py-[10px] rounded-full text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-250 hover:-translate-y-[1px] cursor-pointer border-none ${getActiveClass(3)}`}
           >
             Контакты
           </button>
         </nav>
 
-        {/* Right: CTA Button & Burger Menu */}
+        {/* Right: CTA Button & Burger */}
         <div className="cta justify-self-end flex items-center gap-4">
           <button 
-            onClick={(e) => handleClick(e, 4)}
+            onClick={(e) => handleLinkClick(e, 3)}
             className="desktop-nav-only flex h-11 px-6 rounded-full bg-black text-white hover:-translate-y-[1px] hover:shadow-[0_14px_32px_rgba(0,0,0,0.16)] transition-all duration-300 text-xs font-bold tracking-[0.12em] items-center justify-center shadow-[0_12px_28px_rgba(0,0,0,0.12)] cursor-pointer border-none"
           >
             ОБСУДИТЬ ПРОЕКТ
           </button>
 
-          {/* Burger Button (visible < 900px) */}
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
             className="flex flex-col justify-between w-6 h-4 z-50 mobile-nav-only bg-transparent border-none cursor-pointer focus:outline-none mix-blend-difference"
@@ -130,50 +160,60 @@ export default function Header({ onNavigate, onLogoClick, onPortfolioFromHero, a
       {/* Mobile Menu Overlay */}
       {isMobileMenuOpen && (
         <div className="fixed inset-0 bg-white/95 backdrop-blur-xl z-40 flex flex-col justify-center items-center gap-8 mobile-nav-only animate-fade-in">
-          <nav className="flex flex-col items-center gap-8">
+          <nav className="flex flex-col items-center gap-5">
             <button 
-              onClick={(e) => { setIsMobileMenuOpen(false); handleClick(e, 0); }}
-              className={`text-lg font-medium tracking-[0.2em] uppercase transition-colors bg-transparent border-none cursor-pointer ${
-                activeIndex === 0 ? 'text-black font-bold' : 'text-black/60 hover:text-black'
+              onClick={(e) => handleLinkClick(e, 0)}
+              className={`px-6 py-3 rounded-full text-sm font-semibold tracking-[0.16em] uppercase transition-all duration-250 cursor-pointer border-none ${
+                (!isAtPortfolio && activeIndex === 0) 
+                  ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
+                  : 'bg-transparent text-black/60 hover:bg-black/5 hover:text-black'
               }`}
             >
               Главная
             </button>
             <button 
-              onClick={(e) => { setIsMobileMenuOpen(false); handleClick(e, 1); }}
-              className={`text-lg font-medium tracking-[0.2em] uppercase transition-colors bg-transparent border-none cursor-pointer ${
-                activeIndex === 1 ? 'text-black font-bold' : 'text-black/60 hover:text-black'
+              onClick={(e) => handleLinkClick(e, 1)}
+              className={`px-6 py-3 rounded-full text-sm font-semibold tracking-[0.16em] uppercase transition-all duration-250 cursor-pointer border-none ${
+                (!isAtPortfolio && activeIndex === 1) 
+                  ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
+                  : 'bg-transparent text-black/60 hover:bg-black/5 hover:text-black'
               }`}
             >
               О студии
             </button>
             <button 
-              onClick={(e) => { setIsMobileMenuOpen(false); handleClick(e, 2); }}
-              className={`text-lg font-medium tracking-[0.2em] uppercase transition-colors bg-transparent border-none cursor-pointer ${
-                activeIndex === 2 ? 'text-black font-bold' : 'text-black/60 hover:text-black'
+              onClick={(e) => handleLinkClick(e, 2)}
+              className={`px-6 py-3 rounded-full text-sm font-semibold tracking-[0.16em] uppercase transition-all duration-250 cursor-pointer border-none ${
+                (!isAtPortfolio && activeIndex === 2) 
+                  ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
+                  : 'bg-transparent text-black/60 hover:bg-black/5 hover:text-black'
               }`}
             >
               Цены
             </button>
             <button 
-              onClick={(e) => { setIsMobileMenuOpen(false); handleClick(e, 3); }}
-              className={`text-lg font-medium tracking-[0.2em] uppercase transition-colors bg-transparent border-none cursor-pointer ${
-                activeIndex === 3 ? 'text-black font-bold' : 'text-black/60 hover:text-black'
+              onClick={handlePortfolioClick}
+              className={`px-6 py-3 rounded-full text-sm font-semibold tracking-[0.16em] uppercase transition-all duration-250 cursor-pointer border-none ${
+                isAtPortfolio 
+                  ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
+                  : 'bg-transparent text-black/60 hover:bg-black/5 hover:text-black'
               }`}
             >
               Портфолио
             </button>
             <button 
-              onClick={(e) => { setIsMobileMenuOpen(false); handleClick(e, 4); }}
-              className={`text-lg font-medium tracking-[0.2em] uppercase transition-colors bg-transparent border-none cursor-pointer ${
-                activeIndex === 4 ? 'text-black font-bold' : 'text-black/60 hover:text-black'
+              onClick={(e) => handleLinkClick(e, 3)}
+              className={`px-6 py-3 rounded-full text-sm font-semibold tracking-[0.16em] uppercase transition-all duration-250 cursor-pointer border-none ${
+                (!isAtPortfolio && activeIndex === 3) 
+                  ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
+                  : 'bg-transparent text-black/60 hover:bg-black/5 hover:text-black'
               }`}
             >
               Контакты
             </button>
           </nav>
           <button 
-            onClick={(e) => { setIsMobileMenuOpen(false); handleClick(e, 4); }}
+            onClick={(e) => handleLinkClick(e, 3)}
             className="mt-4 px-8 py-3.5 rounded-full bg-black text-white text-xs font-bold tracking-[0.15em] uppercase shadow-lg shadow-black/10 hover:bg-black/90 transition-colors cursor-pointer border-none"
           >
             Обсудить проект
