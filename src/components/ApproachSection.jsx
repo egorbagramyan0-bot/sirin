@@ -5,6 +5,30 @@ const SECTION_LOGO_SCALE = 0.62;
 const SECTION_LOGO_ROTATE_X = 4;
 const SECTION_LOGO_SCALE_X = 0.92;
 
+const APPROACH_LOGO_STATE = {
+  left: "24%",
+  top: "50%",
+  width: SECTION_LOGO_SIZE,
+  scale: SECTION_LOGO_SCALE,
+  rotateY: 32,
+  rotateX: SECTION_LOGO_ROTATE_X,
+  skewX: 2,
+  scaleX: SECTION_LOGO_SCALE_X,
+  opacity: 1
+};
+
+function buildLogoTransform(state) {
+  return `
+    translate(-50%, -50%)
+    scale(${state.scale})
+    perspective(1200px)
+    rotateY(${state.rotateY}deg)
+    rotateX(${state.rotateX}deg)
+    skewX(${state.skewX}deg)
+    scaleX(${state.scaleX})
+  `;
+}
+
 export default function ApproachSection({ isLogoVisible }) {
   const [svgContent, setSvgContent] = useState('');
   const [isMobile, setIsMobile] = useState(false);
@@ -96,33 +120,48 @@ export default function ApproachSection({ isLogoVisible }) {
       </div>
 
       {/* Static logo for seamless handoff */}
-      <div 
-        className="sirin-logo-wrapper absolute pointer-events-none z-40 flex items-center justify-center select-none"
-        style={{
-          left: isMobile ? '20%' : '24%',
-          top: isMobile ? '12%' : '50%',
-          width: SECTION_LOGO_SIZE,
-          height: 'auto',
-          transform: `translate(-50%, -50%) perspective(1200px) scale(${isMobile ? 0.32 : SECTION_LOGO_SCALE}) rotateY(${isMobile ? 0 : 32}deg) rotateX(${isMobile ? 0 : SECTION_LOGO_ROTATE_X}deg) skewX(${isMobile ? 0 : 2}deg) scaleX(${isMobile ? 1 : SECTION_LOGO_SCALE_X})`,
-          transformStyle: 'preserve-3d',
-          opacity: isLogoVisible ? 1 : 0,
-          visibility: isLogoVisible ? 'visible' : 'hidden',
-          pointerEvents: 'none',
-        }}
-      >
-        <div className="sirin-logo-visual w-full h-full flex items-center justify-center">
-          <div className="sirin-logo-float w-full h-full flex items-center justify-center">
-            {svgContent ? (
-              <div 
-                className="w-full h-full flex items-center justify-center [&_svg]:w-full [&_svg]:h-full [&_svg]:drop-shadow-[0_15px_35px_rgba(0,0,0,0.06)]"
-                dangerouslySetInnerHTML={{ __html: svgContent }}
-              />
-            ) : (
-              <img src="/sirin_symbol_animated_ready.svg" alt="SIRIN symbol" className="w-full h-auto drop-shadow-[0_15px_35px_rgba(0,0,0,0.06)]" />
-            )}
+      {(() => {
+        const approachState = {
+          ...APPROACH_LOGO_STATE,
+          left: isMobile ? "20%" : APPROACH_LOGO_STATE.left,
+          top: isMobile ? "12%" : APPROACH_LOGO_STATE.top,
+          scale: isMobile ? 0.32 : APPROACH_LOGO_STATE.scale,
+          rotateY: isMobile ? 0 : APPROACH_LOGO_STATE.rotateY,
+          rotateX: isMobile ? 0 : APPROACH_LOGO_STATE.rotateX,
+          skewX: isMobile ? 0 : APPROACH_LOGO_STATE.skewX,
+          scaleX: isMobile ? 1 : APPROACH_LOGO_STATE.scaleX,
+        };
+
+        return (
+          <div 
+            className="sirin-logo-wrapper absolute pointer-events-none z-40 flex items-center justify-center select-none"
+            style={{
+              left: approachState.left,
+              top: approachState.top,
+              width: approachState.width,
+              height: 'auto',
+              transform: buildLogoTransform(approachState),
+              transformStyle: 'preserve-3d',
+              opacity: isLogoVisible ? 1 : 0,
+              visibility: isLogoVisible ? 'visible' : 'hidden',
+              pointerEvents: 'none',
+            }}
+          >
+            <div className="sirin-logo-visual w-full h-full flex items-center justify-center">
+              <div className="sirin-logo-float w-full h-full flex items-center justify-center">
+                {svgContent ? (
+                  <div 
+                    className="w-full h-full flex items-center justify-center [&_svg]:w-full [&_svg]:h-full [&_svg]:drop-shadow-[0_15px_35px_rgba(0,0,0,0.06)]"
+                    dangerouslySetInnerHTML={{ __html: svgContent }}
+                  />
+                ) : (
+                  <img src="/sirin_symbol_animated_ready.svg" alt="SIRIN symbol" className="w-full h-auto drop-shadow-[0_15px_35px_rgba(0,0,0,0.06)]" />
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        );
+      })()}
     </section>
   );
 }

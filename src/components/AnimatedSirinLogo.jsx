@@ -7,11 +7,42 @@ const SECTION_LOGO_SCALE = 0.62;
 const SECTION_LOGO_ROTATE_X = 4;
 const SECTION_LOGO_SCALE_X = 0.92;
 
+const APPROACH_LOGO_STATE = {
+  left: "24%",
+  top: "50%",
+  width: SECTION_LOGO_SIZE,
+  scale: SECTION_LOGO_SCALE,
+  rotateY: 32,
+  rotateX: SECTION_LOGO_ROTATE_X,
+  skewX: 2,
+  scaleX: SECTION_LOGO_SCALE_X,
+  opacity: 1
+};
+
+function buildLogoTransform(state) {
+  return `
+    translate(-50%, -50%)
+    scale(${state.scale})
+    perspective(1200px)
+    rotateY(${state.rotateY}deg)
+    rotateX(${state.rotateX}deg)
+    skewX(${state.skewX}deg)
+    scaleX(${state.scaleX})
+  `;
+}
+
 export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic }) {
   const wrapperRef = useRef(null);
   const containerRef = useRef(null);
   const [svgContent, setSvgContent] = useState('');
   const prevHandoffRef = useRef(isHandoffToStatic);
+
+  // Refs to track current transform state across renders
+  const currentScaleRef = useRef(1);
+  const currentRotateYRef = useRef(0);
+  const currentRotateXRef = useRef(0);
+  const currentSkewXRef = useRef(0);
+  const currentScaleXRef = useRef(1);
 
   // Fetch the SVG file from public directory
   useEffect(() => {
@@ -28,6 +59,18 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic }) {
     if (!wrapper) return;
 
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
+    // Resolve approach state dynamically
+    const approachState = {
+      ...APPROACH_LOGO_STATE,
+      left: isMobile ? "20%" : APPROACH_LOGO_STATE.left,
+      top: isMobile ? "12%" : APPROACH_LOGO_STATE.top,
+      scale: isMobile ? 0.32 : APPROACH_LOGO_STATE.scale,
+      rotateY: isMobile ? 0 : APPROACH_LOGO_STATE.rotateY,
+      rotateX: isMobile ? 0 : APPROACH_LOGO_STATE.rotateX,
+      skewX: isMobile ? 0 : APPROACH_LOGO_STATE.skewX,
+      scaleX: isMobile ? 1 : APPROACH_LOGO_STATE.scaleX,
+    };
 
     // Explicit states configuration
     const logoStates = {
@@ -53,17 +96,7 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic }) {
         scaleX: isMobile ? 1 : SECTION_LOGO_SCALE_X,
         autoAlpha: 1
       },
-      approach: {
-        left: isMobile ? '20%' : '24%',
-        top: isMobile ? '12%' : '50%',
-        width: SECTION_LOGO_SIZE,
-        scale: isMobile ? 0.32 : SECTION_LOGO_SCALE,
-        rotateY: isMobile ? 0 : 32,
-        rotateX: isMobile ? 0 : SECTION_LOGO_ROTATE_X,
-        skewX: isMobile ? 0 : 2,
-        scaleX: isMobile ? 1 : SECTION_LOGO_SCALE_X,
-        autoAlpha: 1
-      }
+      approach: approachState
     };
 
     // Cap logo visibility: after index 2 (Approach), fade logo out completely
@@ -79,52 +112,65 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic }) {
 
     const isReverseHandoff = prevHandoff && !isHandoffToStatic;
 
+    const isHandoffChange = activeIndex === 2 && isHandoffToStatic;
+    const duration = isHandoffChange ? 0 : (isReverseHandoff ? 1.1 : 1.3);
+
     if (isReverseHandoff) {
       // 1. Поставить fixed logo в точное approach-состояние
       gsap.set(wrapper, {
-        left: logoStates.approach.left,
-        top: logoStates.approach.top,
-        width: logoStates.approach.width,
-        scale: logoStates.approach.scale,
-        rotationY: logoStates.approach.rotateY,
-        rotationX: logoStates.approach.rotationX,
-        skewX: logoStates.approach.skewX,
-        scaleX: logoStates.approach.scaleX,
+        left: approachState.left,
+        top: approachState.top,
+        width: approachState.width,
         autoAlpha: 1
       });
 
-      // 2. Плавно запустить перелет в новое целевое состояние (about/hero)
-      gsap.to(wrapper, {
-        left: state.left,
-        top: state.top,
-        width: state.width,
-        scale: state.scale,
-        rotationY: state.rotateY,
-        rotationX: state.rotateX,
-        skewX: state.skewX,
-        scaleX: state.scaleX,
-        autoAlpha: state.autoAlpha,
-        duration: 1.1,
-        ease: 'power3.inOut',
-      });
-    } else {
-      // Regular transition
-      const isHandoffChange = activeIndex === 2 && isHandoffToStatic;
+      wrapper.style.transform = buildLogoTransform(approachState);
 
-      gsap.to(wrapper, {
-        left: state.left,
-        top: state.top,
-        width: state.width,
-        scale: state.scale,
-        rotationY: state.rotateY,
-        rotationX: state.rotateX,
-        skewX: state.skewX,
-        scaleX: state.scaleX,
-        autoAlpha: isHandoffToStatic ? 0 : state.autoAlpha,
-        duration: isHandoffChange ? 0 : 1.3,
-        ease: 'power3.inOut',
-      });
+      // Sync refs to match approach state
+      currentScaleRef.current = approachState.scale;
+      currentRotateYRef.current = approachState.rotateY;
+      currentRotateXRef.current = approachState.rotateX;
+      currentSkewXRef.current = approachState.skewX;
+      currentScaleXRef.current = approachState.scaleX;
     }
+
+    // 2. Анимируем layout свойства на wrapper
+    gsap.to(wrapper, {
+      left: state.left,
+      top: state.top,
+      width: state.width,
+      autoAlpha: isHandoffToStatic ? 0 : state.autoAlpha,
+      duration: duration,
+      ease: 'power3.inOut',
+    });
+
+    // 3. Анимируем 3D свойства на animObject
+    const animObject = {
+      scale: currentScaleRef.current,
+      rotateY: currentRotateYRef.current,
+      rotateX: currentRotateXRef.current,
+      skewX: currentSkewXRef.current,
+      scaleX: currentScaleXRef.current,
+    };
+
+    gsap.to(animObject, {
+      scale: state.scale,
+      rotateY: state.rotateY,
+      rotateX: state.rotateX,
+      skewX: state.skewX,
+      scaleX: state.scaleX,
+      duration: duration,
+      ease: 'power3.inOut',
+      onUpdate: () => {
+        currentScaleRef.current = animObject.scale;
+        currentRotateYRef.current = animObject.rotateY;
+        currentRotateXRef.current = animObject.rotateX;
+        currentSkewXRef.current = animObject.skewX;
+        currentScaleXRef.current = animObject.scaleX;
+        wrapper.style.transform = buildLogoTransform(animObject);
+      }
+    });
+
   }, [activeIndex, svgContent, isHandoffToStatic]);
 
   // Independent eye blinking loop
