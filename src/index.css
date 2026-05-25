@@ -163,7 +163,6 @@ html.lenis, html.lenis body {
   width: 28px; /* Mobile width: 26-30px */
   height: auto;
   opacity: 1;
-  mix-blend-mode: difference;
   transition: opacity 0.25s ease, transform 0.25s ease;
   outline: none;
 }
@@ -177,7 +176,6 @@ html.lenis, html.lenis body {
   width: 100%;
   height: auto;
   object-fit: contain;
-  filter: invert(1);
 }
 
 @media (min-width: 768px) {

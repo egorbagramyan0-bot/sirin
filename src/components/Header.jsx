@@ -46,6 +46,7 @@ export default function Header({ onNavigate, onLogoClick, onPortfolioFromHero, a
           <img 
             src="/sirin_symbol_only.svg" 
             alt="SIRIN logo" 
+            className={activeIndex === 4 ? "invert" : ""}
           />
         </button>
 
