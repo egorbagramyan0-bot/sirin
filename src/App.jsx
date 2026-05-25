@@ -24,10 +24,21 @@ export default function App() {
 
   const goToSection = (index) => {
     if (index < 0 || index > 4) return;
+    if (index === activeIndexRef.current) return;
+    if (isAnimatingRef.current) return;
     isAnimatingRef.current = true;
 
-    // Reverse handoff: immediately show fixed logo and hide static logo when leaving Approach (2) going back to About (1)
-    if (activeIndexRef.current === 2 && index === 1) {
+    const from = activeIndexRef.current;
+
+    // Handoff logic for non-adjacent and adjacent jumps
+    if (index >= 3) {
+      // Going to Portfolio or Footer: fixed logo must be hidden, static logo visible in Approach
+      setIsHandoffToStatic(true);
+    } else if (index <= 1 && from >= 2) {
+      // Going back to Hero or About from Approach/Portfolio/Footer: show fixed logo, hide static
+      setIsHandoffToStatic(false);
+    } else if (from === 2 && index === 1) {
+      // Reverse handoff: leaving Approach going back to About
       setIsHandoffToStatic(false);
     }
 
@@ -46,6 +57,7 @@ export default function App() {
     });
 
     setActiveIndex(index);
+    activeIndexRef.current = index;
   };
 
   useEffect(() => {
@@ -116,11 +128,11 @@ export default function App() {
         className="w-full h-full flex flex-col"
         style={{ transformStyle: 'preserve-3d' }}
       >
-        <Hero />
+        <Hero onPortfolioClick={() => goToSection(3)} />
         <AboutSection />
         <ApproachSection isLogoVisible={isHandoffToStatic} />
         <PortfolioCarousel />
-        <Footer />
+        <Footer onNavigate={goToSection} />
       </div>
     </div>
   );

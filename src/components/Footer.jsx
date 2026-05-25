@@ -1,8 +1,11 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
-export default function Footer() {
-  const currentYear = new Date().getFullYear();
+export default function Footer({ onNavigate }) {
+  const handleNav = (e, index) => {
+    e.preventDefault();
+    onNavigate?.(index);
+  };
 
   return (
     <footer 
@@ -69,29 +72,29 @@ export default function Footer() {
             </h3>
             <ul className="flex flex-col gap-2 md:gap-3.5">
               <li>
-                <a href="#portfolio" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
+                <button type="button" onClick={(e) => handleNav(e, 3)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
                   Портфолио
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
+                <button type="button" onClick={(e) => handleNav(e, 1)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
                   Услуги
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
+                <button type="button" onClick={(e) => handleNav(e, 1)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
                   О студии
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#approach" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
+                <button type="button" onClick={(e) => handleNav(e, 2)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
                   Процесс
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#hero" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
+                <button type="button" onClick={(e) => handleNav(e, 2)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
                   Подход
-                </a>
+                </button>
               </li>
             </ul>
           </div>
@@ -103,29 +106,29 @@ export default function Footer() {
             </h3>
             <ul className="flex flex-col gap-2 md:gap-3.5">
               <li>
-                <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
+                <button type="button" onClick={(e) => handleNav(e, 1)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
                   Веб-дизайн
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
+                <button type="button" onClick={(e) => handleNav(e, 1)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
                   Разработка сайтов
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
+                <button type="button" onClick={(e) => handleNav(e, 1)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
                   Визуальная упаковка
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
+                <button type="button" onClick={(e) => handleNav(e, 1)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
                   UX/UI-дизайн
-                </a>
+                </button>
               </li>
               <li>
-                <a href="#about" className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors">
+                <button type="button" onClick={(e) => handleNav(e, 1)} className="font-sans text-[12px] md:text-[13px] text-brand-gray hover:text-white transition-colors bg-transparent border-none p-0 cursor-pointer text-left">
                   Оптимизация скорости
-                </a>
+                </button>
               </li>
             </ul>
           </div>
