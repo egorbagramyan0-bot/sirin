@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
+const SECTION_LOGO_SIZE = "clamp(260px, 24vw, 460px)";
+const SECTION_LOGO_SCALE = 0.62;
+const SECTION_LOGO_ROTATE_X = 4;
+const SECTION_LOGO_SCALE_X = 0.92;
+
 export default function ApproachSection({ isLogoVisible }) {
   const [svgContent, setSvgContent] = useState('');
   const [isMobile, setIsMobile] = useState(false);
@@ -92,27 +97,30 @@ export default function ApproachSection({ isLogoVisible }) {
 
       {/* Static logo for seamless handoff */}
       <div 
-        className="sirin-logo-visual"
+        className="sirin-logo-wrapper absolute pointer-events-none z-40 flex items-center justify-center select-none"
         style={{
-          position: 'absolute',
           left: isMobile ? '20%' : '24%',
           top: isMobile ? '12%' : '50%',
-          width: 'clamp(220px, 22vw, 420px)',
-          transform: `translate(-50%, -50%) perspective(1200px) scale(${isMobile ? 0.32 : 0.62}) rotateY(${isMobile ? 0 : 32}deg) rotateX(${isMobile ? 0 : 4}deg) skewX(${isMobile ? 0 : 2}deg) scaleX(${isMobile ? 1 : 0.92})`,
+          width: SECTION_LOGO_SIZE,
+          height: 'auto',
+          transform: `translate(-50%, -50%) perspective(1200px) scale(${isMobile ? 0.32 : SECTION_LOGO_SCALE}) rotateY(${isMobile ? 0 : 32}deg) rotateX(${isMobile ? 0 : SECTION_LOGO_ROTATE_X}deg) skewX(${isMobile ? 0 : 2}deg) scaleX(${isMobile ? 1 : SECTION_LOGO_SCALE_X})`,
+          transformStyle: 'preserve-3d',
           opacity: isLogoVisible ? 1 : 0,
+          visibility: isLogoVisible ? 'visible' : 'hidden',
           pointerEvents: 'none',
-          zIndex: 40,
         }}
       >
-        <div className="sirin-logo-float">
-          {svgContent ? (
-            <div 
-              className="w-full h-full flex items-center justify-center [&_svg]:w-full [&_svg]:h-full [&_svg]:drop-shadow-[0_15px_35px_rgba(0,0,0,0.06)]"
-              dangerouslySetInnerHTML={{ __html: svgContent }}
-            />
-          ) : (
-            <img src="/sirin_symbol_animated_ready.svg" alt="SIRIN symbol" />
-          )}
+        <div className="sirin-logo-visual w-full h-full flex items-center justify-center">
+          <div className="sirin-logo-float w-full h-full flex items-center justify-center">
+            {svgContent ? (
+              <div 
+                className="w-full h-full flex items-center justify-center [&_svg]:w-full [&_svg]:h-full [&_svg]:drop-shadow-[0_15px_35px_rgba(0,0,0,0.06)]"
+                dangerouslySetInnerHTML={{ __html: svgContent }}
+              />
+            ) : (
+              <img src="/sirin_symbol_animated_ready.svg" alt="SIRIN symbol" className="w-full h-auto drop-shadow-[0_15px_35px_rgba(0,0,0,0.06)]" />
+            )}
+          </div>
         </div>
       </div>
     </section>

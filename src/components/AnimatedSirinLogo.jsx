@@ -2,10 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { gsap } from 'gsap';
 
+const SECTION_LOGO_SIZE = "clamp(260px, 24vw, 460px)";
+const SECTION_LOGO_SCALE = 0.62;
+const SECTION_LOGO_ROTATE_X = 4;
+const SECTION_LOGO_SCALE_X = 0.92;
+
 export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic }) {
   const wrapperRef = useRef(null);
   const containerRef = useRef(null);
   const [svgContent, setSvgContent] = useState('');
+  const prevHandoffRef = useRef(isHandoffToStatic);
 
   // Fetch the SVG file from public directory
   useEffect(() => {
@@ -26,10 +32,10 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic }) {
     // Explicit states configuration
     const logoStates = {
       hero: {
-        left: '50%',
+        left: isMobile ? '50%' : '56%',
         top: isMobile ? '43%' : '42%',
-        width: isMobile ? 'clamp(220px, 22vw, 420px)' : 'clamp(420px, 38vw, 760px)',
-        scale: isMobile ? 1.05 : 1,
+        width: isMobile ? 'clamp(220px, 22vw, 420px)' : 'clamp(420px, 42vw, 760px)',
+        scale: 1,
         rotateY: 0,
         rotateX: 0,
         skewX: 0,
@@ -39,24 +45,24 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic }) {
       about: {
         left: isMobile ? '80%' : '74%',
         top: isMobile ? '12%' : '50%',
-        width: 'clamp(220px, 22vw, 420px)',
-        scale: 1,
+        width: SECTION_LOGO_SIZE,
+        scale: isMobile ? 0.32 : SECTION_LOGO_SCALE,
         rotateY: isMobile ? 0 : -32,
-        rotateX: isMobile ? 0 : 4,
+        rotateX: isMobile ? 0 : SECTION_LOGO_ROTATE_X,
         skewX: isMobile ? 0 : -2,
-        scaleX: isMobile ? 1 : 0.92,
-        autoAlpha: isMobile ? 0.7 : 1
+        scaleX: isMobile ? 1 : SECTION_LOGO_SCALE_X,
+        autoAlpha: 1
       },
       approach: {
         left: isMobile ? '20%' : '24%',
         top: isMobile ? '12%' : '50%',
-        width: 'clamp(220px, 22vw, 420px)',
-        scale: isMobile ? 0.32 : 0.62,
+        width: SECTION_LOGO_SIZE,
+        scale: isMobile ? 0.32 : SECTION_LOGO_SCALE,
         rotateY: isMobile ? 0 : 32,
-        rotateX: isMobile ? 0 : 4,
+        rotateX: isMobile ? 0 : SECTION_LOGO_ROTATE_X,
         skewX: isMobile ? 0 : 2,
-        scaleX: isMobile ? 1 : 0.92,
-        autoAlpha: isMobile ? 0.7 : 1
+        scaleX: isMobile ? 1 : SECTION_LOGO_SCALE_X,
+        autoAlpha: 1
       }
     };
 
@@ -68,22 +74,57 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic }) {
       state = logoStates.approach;
     }
 
-    const isHandoffChange = activeIndex === 2 && isHandoffToStatic;
+    const prevHandoff = prevHandoffRef.current;
+    prevHandoffRef.current = isHandoffToStatic;
 
-    // Transition the logo to its target state
-    gsap.to(wrapper, {
-      left: state.left,
-      top: state.top,
-      width: state.width,
-      scale: state.scale,
-      rotationY: state.rotateY,
-      rotationX: state.rotateX,
-      skewX: state.skewX,
-      scaleX: state.scaleX,
-      autoAlpha: isHandoffToStatic ? 0 : state.autoAlpha,
-      duration: isHandoffChange ? 0 : 1.3,
-      ease: 'power3.inOut',
-    });
+    const isReverseHandoff = prevHandoff && !isHandoffToStatic;
+
+    if (isReverseHandoff) {
+      // 1. Поставить fixed logo в точное approach-состояние
+      gsap.set(wrapper, {
+        left: logoStates.approach.left,
+        top: logoStates.approach.top,
+        width: logoStates.approach.width,
+        scale: logoStates.approach.scale,
+        rotationY: logoStates.approach.rotateY,
+        rotationX: logoStates.approach.rotationX,
+        skewX: logoStates.approach.skewX,
+        scaleX: logoStates.approach.scaleX,
+        autoAlpha: 1
+      });
+
+      // 2. Плавно запустить перелет в новое целевое состояние (about/hero)
+      gsap.to(wrapper, {
+        left: state.left,
+        top: state.top,
+        width: state.width,
+        scale: state.scale,
+        rotationY: state.rotateY,
+        rotationX: state.rotateX,
+        skewX: state.skewX,
+        scaleX: state.scaleX,
+        autoAlpha: state.autoAlpha,
+        duration: 1.1,
+        ease: 'power3.inOut',
+      });
+    } else {
+      // Regular transition
+      const isHandoffChange = activeIndex === 2 && isHandoffToStatic;
+
+      gsap.to(wrapper, {
+        left: state.left,
+        top: state.top,
+        width: state.width,
+        scale: state.scale,
+        rotationY: state.rotateY,
+        rotationX: state.rotateX,
+        skewX: state.skewX,
+        scaleX: state.scaleX,
+        autoAlpha: isHandoffToStatic ? 0 : state.autoAlpha,
+        duration: isHandoffChange ? 0 : 1.3,
+        ease: 'power3.inOut',
+      });
+    }
   }, [activeIndex, svgContent, isHandoffToStatic]);
 
   // Independent eye blinking loop
@@ -145,15 +186,20 @@ export default function AnimatedSirinLogo({ activeIndex, isHandoffToStatic }) {
         perspective: 1200,
         transformStyle: 'preserve-3d',
         opacity: svgContent ? 1 : 0,
-        transition: 'opacity 0.2s ease-in-out',
       }}
     >
-      <div className="sirin-logo-float">
-        <div 
-          ref={containerRef}
-          className="w-full h-full flex items-center justify-center [&_svg]:w-full [&_svg]:h-full [&_svg]:drop-shadow-[0_15px_35px_rgba(0,0,0,0.06)]"
-          dangerouslySetInnerHTML={{ __html: svgContent }}
-        />
+      <div className="sirin-logo-visual w-full h-full flex items-center justify-center">
+        <div className="sirin-logo-float w-full h-full flex items-center justify-center">
+          {svgContent ? (
+            <div 
+              ref={containerRef}
+              className="w-full h-full flex items-center justify-center [&_svg]:w-full [&_svg]:h-full [&_svg]:drop-shadow-[0_15px_35px_rgba(0,0,0,0.06)]"
+              dangerouslySetInnerHTML={{ __html: svgContent }}
+            />
+          ) : (
+            <img src="/sirin_symbol_animated_ready.svg" alt="SIRIN symbol" className="w-full h-auto drop-shadow-[0_15px_35px_rgba(0,0,0,0.06)]" />
+          )}
+        </div>
       </div>
     </div>
   );
