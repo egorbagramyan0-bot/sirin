@@ -294,166 +294,14 @@ export default function App() {
     activeIndexRef.current = index;
   };
 
-  const goFromBelowPricingToAbout = () => {
-    if (isAnimatingRef.current) return;
-    isAnimatingRef.current = true;
-
-    // 1. Prepare fixed logo wrapper exactly at pricing anchor coordinates synchronously in DOM
-    const fixedWrapper = document.querySelector('.sirin-logo-wrapper.fixed');
-    const fixedVisual = document.querySelector('.sirin-logo-wrapper.fixed .sirin-logo-visual');
-    const fixedFloat = document.querySelector('.sirin-logo-wrapper.fixed .sirin-logo-float');
-    const staticWrapper = document.querySelector('.approach-static-logo-wrap');
-
-    if (fixedWrapper && fixedVisual) {
-      if (fixedFloat) {
-        fixedFloat.classList.add('is-handoff');
-      }
-
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
-      gsap.killTweensOf(fixedWrapper);
-      
-      gsap.set(fixedWrapper, {
-        left: isMobile ? '20%' : '24%',
-        top: isMobile ? '12%' : '50%',
-        width: 'clamp(320px, 30vw, 560px)',
-        opacity: 1,
-        visibility: 'visible'
-      });
-
-      gsap.set(fixedVisual, { x: 0, y: 0 });
-
-      const pricingScale = isMobile ? 0.32 : 0.94;
-      const pricingRotateY = isMobile ? 0 : 32;
-      const pricingRotateX = isMobile ? 0 : 4;
-      const pricingSkewX = isMobile ? 0 : 2;
-      const pricingScaleX = isMobile ? 1 : 0.92;
-
-      fixedWrapper.style.transform = `
-        translate(-50%, -50%)
-        perspective(1200px)
-        rotateY(${pricingRotateY}deg)
-        rotateX(${pricingRotateX}deg)
-        skewX(${pricingSkewX}deg)
-        scaleX(${pricingScaleX})
-        scale(${pricingScale})
-      `;
-    }
-
-    if (staticWrapper) {
-      gsap.set(staticWrapper, {
-        opacity: 0,
-        visibility: 'hidden'
-      });
-    }
-
-    setIsHandoffToStatic(false);
-
-    // 2. Start container page slide transition to About (1)
-    gsap.to(containerRef.current, {
-      y: -1 * 100 + 'vh',
-      duration: 1.3,
-      ease: 'power3.inOut',
-      onComplete: () => {
-        isAnimatingRef.current = false;
-        if (fixedFloat) {
-          fixedFloat.classList.remove('is-handoff');
-        }
-      }
-    });
-
-    setActiveIndex(1);
-    activeIndexRef.current = 1;
-  };
-
-  const goFromBelowPricingToHero = () => {
-    if (isAnimatingRef.current) return;
-    isAnimatingRef.current = true;
-
-    // 1. Prepare fixed logo wrapper exactly at pricing anchor coordinates synchronously in DOM
-    const fixedWrapper = document.querySelector('.sirin-logo-wrapper.fixed');
-    const fixedVisual = document.querySelector('.sirin-logo-wrapper.fixed .sirin-logo-visual');
-    const fixedFloat = document.querySelector('.sirin-logo-wrapper.fixed .sirin-logo-float');
-    const staticWrapper = document.querySelector('.approach-static-logo-wrap');
-
-    if (fixedWrapper && fixedVisual) {
-      if (fixedFloat) {
-        fixedFloat.classList.add('is-handoff');
-      }
-
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
-      gsap.killTweensOf(fixedWrapper);
-      
-      gsap.set(fixedWrapper, {
-        left: isMobile ? '20%' : '24%',
-        top: isMobile ? '12%' : '50%',
-        width: 'clamp(320px, 30vw, 560px)',
-        opacity: 1,
-        visibility: 'visible'
-      });
-
-      gsap.set(fixedVisual, { x: 0, y: 0 });
-
-      const pricingScale = isMobile ? 0.32 : 0.94;
-      const pricingRotateY = isMobile ? 0 : 32;
-      const pricingRotateX = isMobile ? 0 : 4;
-      const pricingSkewX = isMobile ? 0 : 2;
-      const pricingScaleX = isMobile ? 1 : 0.92;
-
-      fixedWrapper.style.transform = `
-        translate(-50%, -50%)
-        perspective(1200px)
-        rotateY(${pricingRotateY}deg)
-        rotateX(${pricingRotateX}deg)
-        skewX(${pricingSkewX}deg)
-        scaleX(${pricingScaleX})
-        scale(${pricingScale})
-      `;
-    }
-
-    if (staticWrapper) {
-      gsap.set(staticWrapper, {
-        opacity: 0,
-        visibility: 'hidden'
-      });
-    }
-
-    setIsHandoffToStatic(false);
-
-    // 2. Start container page slide transition to Hero (0)
-    gsap.to(containerRef.current, {
-      y: 0,
-      duration: 1.3,
-      ease: 'power3.inOut',
-      onComplete: () => {
-        isAnimatingRef.current = false;
-        if (fixedFloat) {
-          fixedFloat.classList.remove('is-handoff');
-        }
-      }
-    });
-
-    setActiveIndex(0);
-    activeIndexRef.current = 0;
-  };
-
   const handleNavClick = (targetIndex) => {
-    if (isAnimatingRef.current) return;
-
-    const isBelowPricing = activeIndexRef.current >= 3;
-
-    // Из Portfolio / Contacts наверх в About
-    if (isBelowPricing && targetIndex === 1) {
-      goFromBelowPricingToAbout();
-      return;
-    }
-
-    // Из Portfolio / Contacts наверх в Hero
-    if (isBelowPricing && targetIndex === 0) {
-      goFromBelowPricingToHero();
-      return;
-    }
-
-    if (targetIndex === 3) {
+    if (activeIndexRef.current >= 3 && targetIndex === 1) {
+      setIsLogoHidden(false);
+      goToSection(1, { source: 'nav' });
+    } else if (activeIndexRef.current >= 3 && targetIndex === 0) {
+      setIsLogoHidden(false);
+      goToSection(0, { source: 'nav' });
+    } else if (targetIndex === 3) {
       goToPortfolio();
     } else if (targetIndex === 4) {
       goToContacts();
@@ -464,7 +312,8 @@ export default function App() {
 
   const handleLogoHomeClick = () => {
     if (activeIndexRef.current >= 3) {
-      goFromBelowPricingToHero();
+      setIsLogoHidden(false);
+      goToSection(0, { source: 'nav' });
     } else {
       goToSection(0, { source: 'nav' });
     }
