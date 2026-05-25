@@ -158,8 +158,6 @@ html.lenis, html.lenis body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  border: none;
   padding: 0;
   cursor: pointer;
   outline: none;

@@ -45,10 +45,10 @@ export default function Header({ onNavigate, onLogoClick, onPortfolioFromHero, a
                 onNavigate(0);
               }
             }}
-            className={`nav-logo-button transition-all duration-250 cursor-pointer ${
+            className={`nav-logo-button border-none transition-all duration-250 cursor-pointer ${
               activeIndex === 0 
-                ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
-                : 'hover:bg-black/5'
+                ? 'bg-black shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
+                : 'bg-transparent hover:bg-black/5'
             }`}
             aria-label="На главный экран"
           >
