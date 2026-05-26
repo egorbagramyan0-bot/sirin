@@ -55,7 +55,7 @@ export default function Hero({ onPortfolioClick }) {
             </span>
           </h1>
           <p className="hero-subtitle font-sans text-brand-gray tracking-wide">
-            Продуманный сайт для вашего бизнеса от 25 000 ₽ и 7 дней.
+            Продуманный сайт для вашего бизнеса от 30 000 ₽ и 7 дней.
           </p>
           <div className="hero-actions">
             <button 

@@ -119,15 +119,6 @@ export default function Footer({ onNavigate }) {
                 onClick={(e) => handleNav(e, 2)} 
                 className="footer-link"
               >
-                Премиум-сайты
-              </button>
-            </li>
-            <li>
-              <button 
-                type="button" 
-                onClick={(e) => handleNav(e, 2)} 
-                className="footer-link"
-              >
                 Яндекс Метрика
               </button>
             </li>
