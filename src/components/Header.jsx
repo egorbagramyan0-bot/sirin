@@ -105,12 +105,14 @@ export default function Header({ onNavigate, onLogoClick, activeIndex }) {
 
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-            className="flex flex-col justify-between w-6 h-4 z-50 mobile-nav-only bg-transparent border-none cursor-pointer focus:outline-none"
+            className="mobile-menu-button z-50 mobile-nav-only border-none cursor-pointer focus:outline-none"
             aria-label="Toggle menu"
           >
-            <span className={`w-full h-0.5 bg-black transition-all duration-300 origin-left ${isMobileMenuOpen ? 'rotate-45 translate-y-[2px] translate-x-[2px]' : ''}`}></span>
-            <span className={`w-full h-0.5 bg-black transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`w-full h-0.5 bg-black transition-all duration-300 origin-left ${isMobileMenuOpen ? '-rotate-45 -translate-y-[2px] translate-x-[2px]' : ''}`}></span>
+            <div className="mobile-menu-icon">
+              <span className={`transition-all duration-300 origin-center ${isMobileMenuOpen ? 'rotate-45 translate-y-[6px]' : ''}`}></span>
+              <span className={`transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+              <span className={`transition-all duration-300 origin-center ${isMobileMenuOpen ? '-rotate-45 -translate-y-[6px]' : ''}`}></span>
+            </div>
           </button>
         </div>
       </header>

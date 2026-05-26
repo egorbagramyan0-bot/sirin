@@ -104,6 +104,10 @@ html.lenis, html.lenis body {
   display: none;
 }
 
+.mobile-menu-button {
+  display: none;
+}
+
 .hero-wordmark-container {
   position: absolute;
   left: 50%;
@@ -944,6 +948,54 @@ html.lenis, html.lenis body {
   .site-header {
     top: max(14px, env(safe-area-inset-top)) !important;
     padding: 0 16px !important;
+    z-index: 80 !important;
+  }
+
+  .mobile-menu-button {
+    width: 54px !important;
+    height: 42px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    background: rgba(255, 255, 255, 0.72) !important;
+    backdrop-filter: blur(18px) !important;
+    -webkit-backdrop-filter: blur(18px) !important;
+    box-shadow:
+      0 12px 34px rgba(0, 0, 0, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.72) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    transition:
+      transform 0.24s ease,
+      background 0.24s ease,
+      box-shadow 0.24s ease,
+      border-color 0.24s ease !important;
+  }
+
+  .mobile-menu-button:hover {
+    transform: translateY(-1px) !important;
+    background: rgba(255, 255, 255, 0.86) !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+    box-shadow:
+      0 16px 42px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.82) !important;
+  }
+
+  .mobile-menu-icon {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .mobile-menu-icon span {
+    display: block !important;
+    width: 18px !important;
+    height: 2px !important;
+    background: #000 !important;
+    border-radius: 999px !important;
   }
 
   .nav-pill {
