@@ -23,6 +23,8 @@ export default function useLenis() {
       infinite: false,
     });
 
+    window.lenis = lenis;
+
     // Update ScrollTrigger on scroll
     lenis.on('scroll', () => {
       ScrollTrigger.update();
@@ -39,6 +41,7 @@ export default function useLenis() {
 
     return () => {
       lenis.destroy();
+      window.lenis = null;
       gsap.ticker.remove(updatePhysics);
     };
   }, []);

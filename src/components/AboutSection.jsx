@@ -5,11 +5,11 @@ export default function AboutSection() {
   return (
     <section 
       id="about" 
-      className="relative w-full h-screen flex items-center justify-center px-8 md:px-16 bg-white border-t border-brand-light-gray flex-shrink-0 overflow-hidden"
+      className="about-section bg-white border-t border-brand-light-gray flex-shrink-0 overflow-hidden"
     >
-      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div className="about-inner">
         {/* Left Column - Content */}
-        <div className="flex flex-col justify-center max-w-xl">
+        <div className="about-left flex flex-col justify-center">
           <span className="font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-6 block">
             О СТУДИИ
           </span>
@@ -71,9 +71,56 @@ export default function AboutSection() {
           </div>
         </div>
 
-        {/* Right Column - Spacer for Floating Animated Logo */}
-        <div className="flex lg:flex items-center justify-center h-[120px] lg:h-[500px]">
-          {/* Logo lands here automatically via fixed position animation */}
+        {/* Right Column - Cards */}
+        <div className="flex flex-col gap-6">
+          <span className="font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase block">
+            ПРИНЦИПЫ РАБОТЫ
+          </span>
+          <div className="about-right">
+            {/* Card 1 */}
+            <div className="about-card flex flex-col justify-between transition-all duration-300">
+              <div className="about-card-number font-display">01</div>
+              <div>
+                <h4 className="about-card-title font-display">Структура до дизайна</h4>
+                <p className="about-card-text font-sans">
+                  Сначала собираем логику страницы: кто клиент, что ему важно и какое действие он должен совершить.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="about-card flex flex-col justify-between transition-all duration-300">
+              <div className="about-card-number font-display">02</div>
+              <div>
+                <h4 className="about-card-title font-display">Визуал под бренд</h4>
+                <p className="about-card-text font-sans">
+                  Не используем случайные шаблоны. Подбираем подачу, типографику и ритм под конкретный бизнес.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="about-card flex flex-col justify-between transition-all duration-300">
+              <div className="about-card-number font-display">03</div>
+              <div>
+                <h4 className="about-card-title font-display">Адаптив и скорость</h4>
+                <p className="about-card-text font-sans">
+                  Сайт должен одинаково хорошо выглядеть на телефоне, быстро загружаться и не мешать заявке.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 4 */}
+            <div className="about-card flex flex-col justify-between transition-all duration-300">
+              <div className="about-card-number font-display">04</div>
+              <div>
+                <h4 className="about-card-title font-display">Готовность к рекламе</h4>
+                <p className="about-card-text font-sans">
+                  Продумываем CTA, контакты, аналитику и структуру так, чтобы сайт можно было вести в трафик.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

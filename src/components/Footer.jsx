@@ -1,23 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { gsap } from 'gsap';
 import { ArrowUpRight } from 'lucide-react';
 
 export default function Footer({ onNavigate }) {
-  const navigate = useNavigate();
-
   const handleNav = (e, index) => {
     e.preventDefault();
-    if (index === 3) {
-      // Hide the fixed logo before transition
-      const fixedWrapper = document.querySelector('.sirin-logo-wrapper.fixed');
-      if (fixedWrapper) {
-        gsap.to(fixedWrapper, { autoAlpha: 0, duration: 0.25 });
-      }
-      navigate('/portfolio');
-    } else {
-      onNavigate?.(index);
-    }
+    onNavigate?.(index);
   };
 
   return (
@@ -32,7 +19,7 @@ export default function Footer({ onNavigate }) {
           <div>
             <div className="mb-4 md:mb-6 flex select-none">
               <img 
-                src="/sirin_full_logo.svg" 
+                src="/fullsvg.svg" 
                 alt="SIRIN full logo" 
                 className="h-8 md:h-12 object-contain invert" 
               />

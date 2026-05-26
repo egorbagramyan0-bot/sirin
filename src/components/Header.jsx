@@ -1,20 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { gsap } from 'gsap';
 
-export default function Header({ 
-  onNavigate, 
-  onLogoClick, 
-  activeIndex, 
-  onTransitionToRoute, 
-  onTransitionToHomeSection 
-}) {
+export default function Header({ onNavigate, onLogoClick, activeIndex }) {
   const headerRef = useRef(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const isAtPortfolio = location.pathname === '/portfolio';
 
   useEffect(() => {
     // Animate header entry
@@ -28,51 +17,24 @@ export default function Header({
     e.preventDefault();
     setIsMobileMenuOpen(false);
     
-    if (isAtPortfolio) {
-      if (onTransitionToHomeSection) {
-        onTransitionToHomeSection(index);
-      } else {
-        const hashes = { 0: '#hero', 1: '#about', 2: '#pricing', 3: '#contacts' };
-        navigate('/' + hashes[index]);
-      }
+    if (index === 0) {
+      if (onLogoClick) onLogoClick();
+      else if (onNavigate) onNavigate(0);
     } else {
-      // If we are on homepage, trigger direct section scroll
-      if (index === 0) {
-        if (onLogoClick) onLogoClick();
-        else if (onNavigate) onNavigate(0);
-      } else {
-        if (onNavigate) onNavigate(index);
-      }
-    }
-  };
-
-  const handlePortfolioClick = (e) => {
-    e.preventDefault();
-    setIsMobileMenuOpen(false);
-    if (!isAtPortfolio) {
-      if (onTransitionToRoute) {
-        onTransitionToRoute('/portfolio');
-      } else {
-        // Hide the fixed logo before transition as requested
-        const fixedWrapper = document.querySelector('.sirin-logo-wrapper.fixed');
-        if (fixedWrapper) {
-          gsap.to(fixedWrapper, { autoAlpha: 0, duration: 0.25 });
-        }
-        navigate('/portfolio');
-      }
+      if (onNavigate) onNavigate(index);
     }
   };
 
   // Helper to determine active state class
   const getActiveClass = (btnIndex) => {
-    const isActive = !isAtPortfolio && activeIndex === btnIndex;
+    const isActive = activeIndex === btnIndex;
     return isActive 
       ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
       : 'bg-transparent text-black/62 hover:bg-black/5 hover:text-black';
   };
 
   const getLogoActiveClass = () => {
-    const isActive = !isAtPortfolio && activeIndex === 0;
+    const isActive = activeIndex === 0;
     return isActive 
       ? 'bg-black shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
       : 'bg-transparent hover:bg-black/5';
@@ -97,9 +59,9 @@ export default function Header({
             aria-label="На главный экран"
           >
             <img 
-              src="/sirin_symbol_only.svg" 
+              src="/sir.svg" 
               alt="SIRIN" 
-              className={(!isAtPortfolio && activeIndex === 0) ? "invert" : ""}
+              className={activeIndex === 0 ? "invert" : ""}
             />
           </button>
 
@@ -119,18 +81,14 @@ export default function Header({
             Цены
           </button>
           <button 
-            onClick={handlePortfolioClick}
-            className={`px-[18px] py-[10px] rounded-full text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-250 hover:-translate-y-[1px] cursor-pointer border-none ${
-              isAtPortfolio 
-                ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
-                : 'bg-transparent text-black/62 hover:bg-black/5 hover:text-black'
-            }`}
+            onClick={(e) => handleLinkClick(e, 3)}
+            className={`px-[18px] py-[10px] rounded-full text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-250 hover:-translate-y-[1px] cursor-pointer border-none ${getActiveClass(3)}`}
           >
             Портфолио
           </button>
           <button 
-            onClick={(e) => handleLinkClick(e, 3)}
-            className={`px-[18px] py-[10px] rounded-full text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-250 hover:-translate-y-[1px] cursor-pointer border-none ${getActiveClass(3)}`}
+            onClick={(e) => handleLinkClick(e, 4)}
+            className={`px-[18px] py-[10px] rounded-full text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-250 hover:-translate-y-[1px] cursor-pointer border-none ${getActiveClass(4)}`}
           >
             Контакты
           </button>
@@ -139,7 +97,7 @@ export default function Header({
         {/* Right: CTA Button & Burger */}
         <div className="cta justify-self-end flex items-center gap-4">
           <button 
-            onClick={(e) => handleLinkClick(e, 3)}
+            onClick={(e) => handleLinkClick(e, 4)}
             className="desktop-nav-only flex h-11 px-6 rounded-full bg-black text-white hover:-translate-y-[1px] hover:shadow-[0_14px_32px_rgba(0,0,0,0.16)] transition-all duration-300 text-xs font-bold tracking-[0.12em] items-center justify-center shadow-[0_12px_28px_rgba(0,0,0,0.12)] cursor-pointer border-none"
           >
             ОБСУДИТЬ ПРОЕКТ
@@ -164,7 +122,7 @@ export default function Header({
             <button 
               onClick={(e) => handleLinkClick(e, 0)}
               className={`px-6 py-3 rounded-full text-sm font-semibold tracking-[0.16em] uppercase transition-all duration-250 cursor-pointer border-none ${
-                (!isAtPortfolio && activeIndex === 0) 
+                activeIndex === 0 
                   ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
                   : 'bg-transparent text-black/60 hover:bg-black/5 hover:text-black'
               }`}
@@ -174,7 +132,7 @@ export default function Header({
             <button 
               onClick={(e) => handleLinkClick(e, 1)}
               className={`px-6 py-3 rounded-full text-sm font-semibold tracking-[0.16em] uppercase transition-all duration-250 cursor-pointer border-none ${
-                (!isAtPortfolio && activeIndex === 1) 
+                activeIndex === 1 
                   ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
                   : 'bg-transparent text-black/60 hover:bg-black/5 hover:text-black'
               }`}
@@ -184,7 +142,7 @@ export default function Header({
             <button 
               onClick={(e) => handleLinkClick(e, 2)}
               className={`px-6 py-3 rounded-full text-sm font-semibold tracking-[0.16em] uppercase transition-all duration-250 cursor-pointer border-none ${
-                (!isAtPortfolio && activeIndex === 2) 
+                activeIndex === 2 
                   ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
                   : 'bg-transparent text-black/60 hover:bg-black/5 hover:text-black'
               }`}
@@ -192,9 +150,9 @@ export default function Header({
               Цены
             </button>
             <button 
-              onClick={handlePortfolioClick}
+              onClick={(e) => handleLinkClick(e, 3)}
               className={`px-6 py-3 rounded-full text-sm font-semibold tracking-[0.16em] uppercase transition-all duration-250 cursor-pointer border-none ${
-                isAtPortfolio 
+                activeIndex === 3 
                   ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
                   : 'bg-transparent text-black/60 hover:bg-black/5 hover:text-black'
               }`}
@@ -202,9 +160,9 @@ export default function Header({
               Портфолио
             </button>
             <button 
-              onClick={(e) => handleLinkClick(e, 3)}
+              onClick={(e) => handleLinkClick(e, 4)}
               className={`px-6 py-3 rounded-full text-sm font-semibold tracking-[0.16em] uppercase transition-all duration-250 cursor-pointer border-none ${
-                (!isAtPortfolio && activeIndex === 3) 
+                activeIndex === 4 
                   ? 'bg-black text-white shadow-[0_8px_20px_rgba(0,0,0,0.12)]' 
                   : 'bg-transparent text-black/60 hover:bg-black/5 hover:text-black'
               }`}
@@ -213,7 +171,7 @@ export default function Header({
             </button>
           </nav>
           <button 
-            onClick={(e) => handleLinkClick(e, 3)}
+            onClick={(e) => handleLinkClick(e, 4)}
             className="mt-4 px-8 py-3.5 rounded-full bg-black text-white text-xs font-bold tracking-[0.15em] uppercase shadow-lg shadow-black/10 hover:bg-black/90 transition-colors cursor-pointer border-none"
           >
             Обсудить проект
