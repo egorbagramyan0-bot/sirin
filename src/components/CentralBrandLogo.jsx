@@ -11,23 +11,18 @@ export default function CentralBrandLogo() {
     const mm = gsap.matchMedia();
 
     mm.add({
-      isDesktop: "(min-width: 769px)",
-      isMobile: "(max-width: 768px)"
-    }, (context) => {
-      const { isMobile } = context.conditions;
-
+      isDesktop: "(min-width: 769px)"
+    }, () => {
       const trigger = ScrollTrigger.create({
         trigger: document.body,
         start: "160px top",
         onEnter: () => {
           gsap.killTweensOf(symbolWrapRef.current);
           gsap.to(symbolWrapRef.current, {
-            opacity: isMobile ? 0.04 : 0.12,
-            filter: isMobile 
-              ? "blur(6px) drop-shadow(0 26px 44px rgba(0, 0, 0, 0.03))" 
-              : "blur(3px) drop-shadow(0 26px 44px rgba(0, 0, 0, 0.06))",
+            opacity: 0.12,
+            filter: "blur(3px) drop-shadow(0 26px 44px rgba(0, 0, 0, 0.06))",
             scale: 1.04,
-            y: isMobile ? 30 : 50,
+            y: 50,
             duration: 0.55,
             ease: "power2.out",
             overwrite: true

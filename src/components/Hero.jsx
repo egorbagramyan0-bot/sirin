@@ -54,7 +54,7 @@ export default function Hero({ onPortfolioClick }) {
             <button 
               type="button"
               onClick={() => onPortfolioClick?.()}
-              className="group inline-flex items-center gap-4 px-6 py-3 rounded-full bg-brand-black text-white hover:bg-brand-graphite transition-all duration-300 text-xs font-semibold tracking-widest shadow-lg shadow-black/10 cursor-pointer"
+              className="hero-button group inline-flex items-center gap-4 px-6 py-3 rounded-full bg-brand-black text-white hover:bg-brand-graphite transition-all duration-300 text-xs font-semibold tracking-widest shadow-lg shadow-black/10 cursor-pointer"
             >
               СМОТРЕТЬ РАБОТЫ
               <span className="transform group-hover:translate-x-1.5 transition-transform duration-300">→</span>
