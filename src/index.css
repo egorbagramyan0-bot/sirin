@@ -850,7 +850,6 @@ html.lenis, html.lenis body {
     width: 120vw !important;
     left: 50% !important;
     top: 47% !important;
-    opacity: 0.08 !important;
     transform: translate(-50%, -50%) !important;
     z-index: 1 !important;
   }
