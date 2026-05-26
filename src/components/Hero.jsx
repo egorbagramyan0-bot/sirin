@@ -35,7 +35,13 @@ export default function Hero({ onPortfolioClick }) {
       <div className="hero-content">
         {/* Left: Text */}
         <div className="hero-copy flex flex-col justify-center">
-          <span className="font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-6 block">
+          <div className="mobile-hero-brand" aria-hidden="true">
+            <div className="mobile-hero-symbol-float">
+              <img className="mobile-hero-symbol" src="/sir.svg" alt="" />
+            </div>
+            <img className="mobile-hero-wordmark" src="/textsvg.svg" alt="" />
+          </div>
+          <span className="hero-kicker font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-6 block">
             СТУДИЯ ВЕБ-ДИЗАЙНА
           </span>
           <h1 className="hero-title">
