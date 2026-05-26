@@ -44,13 +44,15 @@ export default function Hero({ onPortfolioClick }) {
             СТУДИЯ ВЕБ-ДИЗАЙНА
           </span>
           <h1 className="hero-title">
-            <span>Создаем сайты, которые</span>
+            <span className="hero-title-static">Создаем сайты, которые</span>
             <br />
-            <FlipWords
-              words={heroWords}
-              duration={3000}
-              className="hero-flip-words"
-            />
+            <span className="hero-flip-line">
+              <FlipWords
+                words={heroWords}
+                duration={3000}
+                className="hero-flip-words"
+              />
+            </span>
           </h1>
           <p className="hero-subtitle font-sans text-brand-gray tracking-wide">
             Продуманный сайт для вашего бизнеса от 25 000 ₽ и 7 дней.

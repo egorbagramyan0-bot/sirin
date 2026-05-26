@@ -55,9 +55,10 @@ export const FlipWords = ({
           position: "absolute",
         }}
         className={cn(
-          "z-10 inline-block relative text-left text-foreground px-0",
+          "z-10 inline-block relative text-left text-foreground px-0 whitespace-nowrap",
           className
         )}
+        style={{ whiteSpace: "nowrap" }}
         key={currentWord}
       >
         {currentWord.split(" ").map((word, wordIndex) => (
@@ -70,6 +71,7 @@ export const FlipWords = ({
               duration: 0.3,
             }}
             className="inline-block whitespace-nowrap"
+            style={{ whiteSpace: "nowrap" }}
           >
             {word.split("").map((letter, letterIndex) => (
               <motion.span
@@ -80,12 +82,13 @@ export const FlipWords = ({
                   delay: wordIndex * 0.3 + letterIndex * 0.05,
                   duration: 0.2,
                 }}
-                className="inline-block"
+                className="inline-block whitespace-nowrap"
+                style={{ whiteSpace: "nowrap" }}
               >
                 {letter}
               </motion.span>
             ))}
-            <span className="inline-block">&nbsp;</span>
+            <span className="inline-block whitespace-nowrap" style={{ whiteSpace: "nowrap" }}>&nbsp;</span>
           </motion.span>
         ))}
       </motion.div>
