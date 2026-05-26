@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
 const projects = [
@@ -26,59 +26,8 @@ const projects = [
 ];
 
 function PortfolioCard({ project }) {
-  const [loaded, setLoaded] = useState(false);
-  const iframeRef = useRef(null);
-  const wrapRef = useRef(null);
-  const [scale, setScale] = useState(0.2);
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Lazy-load iframe only when card is visible
-  const cardRef = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: '200px' }
-    );
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!wrapRef.current || isMobile) return;
-    const updateScale = () => {
-      const width = wrapRef.current.clientWidth;
-      if (width > 0) {
-        setScale(width / 1440);
-      }
-    };
-
-    updateScale();
-    const resizeObserver = new ResizeObserver(() => {
-      updateScale();
-    });
-    resizeObserver.observe(wrapRef.current);
-
-    return () => resizeObserver.disconnect();
-  }, [isMobile]);
-
   return (
-    <article ref={cardRef} className="portfolio-card">
+    <article className="portfolio-card">
       {/* Browser-frame preview */}
       <div className="portfolio-card-preview">
         {/* Browser dots */}
@@ -88,37 +37,13 @@ function PortfolioCard({ project }) {
           <span className="portfolio-browser-dot" />
           <span className="portfolio-browser-url font-sans">{new URL(project.url).hostname}</span>
         </div>
-        <div ref={wrapRef} className="portfolio-iframe-wrap">
-          {!isMobile && visible && (
-            <iframe
-              ref={iframeRef}
-              src={project.url}
-              title={project.title}
-              loading="lazy"
-              scrolling="no"
-              onLoad={() => setLoaded(true)}
-              className={`portfolio-iframe ${loaded ? 'is-loaded' : ''}`}
-              style={{
-                transform: `scale(${scale})`,
-                transformOrigin: 'top left',
-                width: '1440px',
-                height: '900px',
-              }}
-            />
-          )}
-          {isMobile && (
-            <img 
-              src={project.previewImage} 
-              alt={project.title} 
-              className="portfolio-mobile-preview w-full h-full object-cover" 
-              loading="lazy"
-            />
-          )}
-          {!isMobile && (!visible || !loaded) && (
-            <div className="portfolio-iframe-placeholder">
-              <div className="portfolio-placeholder-spinner" />
-            </div>
-          )}
+        <div className="portfolio-iframe-wrap">
+          <img 
+            src={project.previewImage} 
+            alt={project.title} 
+            className="w-full h-full object-cover object-top block" 
+            loading="lazy"
+          />
         </div>
       </div>
 
