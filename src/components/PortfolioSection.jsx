@@ -7,18 +7,21 @@ const projects = [
     category: 'Корпоративный сайт / строительство',
     desc: 'Сайт для компании в строительной сфере с чистой структурой, понятной подачей услуг и акцентом на доверие. Основная задача — быстро объяснить направление компании, показать надежность и привести пользователя к заявке.',
     url: 'https://lideryug.vercel.app/',
+    previewImage: '/lider_preview.png',
   },
   {
     title: 'PRORAB',
     category: 'Салон отделочных материалов',
     desc: 'Сайт для салона керамогранита и внутренней отделки. Визуальная подача строится вокруг ассортимента, бренда и быстрых действий: посмотреть направления, связаться, построить маршрут и перейти к выбору материалов.',
     url: 'https://prorab-site.vercel.app/',
+    previewImage: '/prorab_preview.png',
   },
   {
     title: 'GEV Barbershop',
     category: 'Локальный бизнес / услуги',
     desc: 'Атмосферный сайт для барбершопа с акцентом на стиль, доверие и быструю запись. Страница показывает услуги, мастеров, настроение заведения и помогает пользователю быстро принять решение.',
     url: 'https://gev-barber.vercel.app/',
+    previewImage: '/barber_preview.png',
   },
 ];
 
@@ -27,10 +30,20 @@ function PortfolioCard({ project }) {
   const iframeRef = useRef(null);
   const wrapRef = useRef(null);
   const [scale, setScale] = useState(0.2);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Lazy-load iframe only when card is visible
   const cardRef = useRef(null);
   const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -47,7 +60,7 @@ function PortfolioCard({ project }) {
   }, []);
 
   useEffect(() => {
-    if (!wrapRef.current) return;
+    if (!wrapRef.current || isMobile) return;
     const updateScale = () => {
       const width = wrapRef.current.clientWidth;
       if (width > 0) {
@@ -62,7 +75,7 @@ function PortfolioCard({ project }) {
     resizeObserver.observe(wrapRef.current);
 
     return () => resizeObserver.disconnect();
-  }, []);
+  }, [isMobile]);
 
   return (
     <article ref={cardRef} className="portfolio-card">
@@ -76,7 +89,7 @@ function PortfolioCard({ project }) {
           <span className="portfolio-browser-url font-sans">{new URL(project.url).hostname}</span>
         </div>
         <div ref={wrapRef} className="portfolio-iframe-wrap">
-          {visible && (
+          {!isMobile && visible && (
             <iframe
               ref={iframeRef}
               src={project.url}
@@ -93,7 +106,15 @@ function PortfolioCard({ project }) {
               }}
             />
           )}
-          {(!visible || !loaded) && (
+          {isMobile && (
+            <img 
+              src={project.previewImage} 
+              alt={project.title} 
+              className="portfolio-mobile-preview w-full h-full object-cover" 
+              loading="lazy"
+            />
+          )}
+          {!isMobile && (!visible || !loaded) && (
             <div className="portfolio-iframe-placeholder">
               <div className="portfolio-placeholder-spinner" />
             </div>

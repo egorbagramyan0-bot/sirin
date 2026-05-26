@@ -13,6 +13,24 @@
 }
 
 /* Base resets & custom scrollbar */
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img,
+svg,
+video,
+iframe {
+  max-width: 100%;
+}
+
 html {
   background-color: #ffffff;
   color: var(--color-brand-black);
@@ -211,8 +229,8 @@ html.lenis, html.lenis body {
   z-index: 6;
   width: 100%;
   display: grid;
-  grid-template-columns: minmax(380px, 0.9fr) minmax(460px, 1.1fr);
-  gap: clamp(56px, 7vw, 120px);
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(40px, 5vw, 100px);
   align-items: center;
 }
 
@@ -444,73 +462,13 @@ html.lenis, html.lenis body {
   box-shadow: 0 18px 34px rgba(0, 0, 0, 0.16);
 }
 
-@media (max-width: 768px) {
-  .hero-content {
-    display: flex;
-    flex-direction: column-reverse;
-    justify-content: center;
-    gap: 2rem;
-    min-height: calc(100vh - 80px);
-    padding-left: 24px;
-    padding-right: 24px;
-  }
-  .about-section {
-    padding: 80px 24px;
-  }
-  .about-inner {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-  .about-left {
-    max-width: 100%;
-  }
-  .about-right {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-  .about-card {
-    min-height: auto;
-    padding: 22px;
-  }
-  .central-symbol-wrap, .hero-symbol-spacer {
-    width: clamp(220px, 60vw, 420px);
-  }
-  .central-wordmark {
-    width: min(40vw, 240px);
-  }
-}
-
-/* Pricing responsive: tablet */
-@media (max-width: 1200px) {
-  .pricing-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .pricing-card {
-    grid-column: span 1;
-  }
-}
-
-/* Pricing responsive: mobile */
-@media (max-width: 720px) {
-  .pricing-section {
-    padding: 96px 24px;
-  }
-  .pricing-grid {
-    grid-template-columns: 1fr;
-  }
-  .pricing-card {
-    grid-column: span 1;
-    min-height: auto;
-  }
-}
-
 /* Responsive Navigation Utilities */
-@media (max-width: 899px) {
+@media (max-width: 900px) {
   .desktop-nav-only {
     display: none !important;
   }
 }
-@media (min-width: 900px) {
+@media (min-width: 901px) {
   .mobile-nav-only {
     display: none !important;
   }
@@ -767,25 +725,7 @@ html.lenis, html.lenis body {
   box-shadow: 0 18px 34px rgba(0, 0, 0, 0.16);
 }
 
-/* Portfolio responsive: tablet */
-@media (max-width: 1100px) {
-  .portfolio-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* Portfolio responsive: mobile */
-@media (max-width: 720px) {
-  .portfolio-section {
-    padding: 96px 24px;
-  }
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-  }
-  .portfolio-card {
-    min-height: auto;
-  }
-}
+/* Responsive Portfolio styles are defined in the media queries at the bottom of the file */
 
 /* FlipWords styling */
 .hero-title {
@@ -814,8 +754,55 @@ html.lenis, html.lenis body {
   font-family: inherit !important;
 }
 
-/* ── Mobile Layout Optimizations (max-width: 768px) ── */
+/* ── STANDARDIZED RESPONSIVE MEDIA QUERIES ── */
+
+/* 1. Laptop / Tablet Landscape (max-width: 1200px) */
+@media (max-width: 1200px) {
+  .pricing-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .pricing-card {
+    grid-column: span 1 !important;
+  }
+  .portfolio-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* 2. Tablet (max-width: 900px) */
+@media (max-width: 900px) {
+  .about-inner {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .about-right {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .about-card {
+    min-height: auto !important;
+  }
+}
+
+/* 3. Mobile (max-width: 768px) */
 @media (max-width: 768px) {
+  section {
+    min-height: auto !important;
+  }
+  .about-section,
+  .pricing-section,
+  .portfolio-section,
+  .contacts-section,
+  .footer {
+    padding-top: 72px !important;
+    padding-bottom: 72px !important;
+    min-height: auto !important;
+    height: auto !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* Hero Mobile Section */
   .hero-section {
     min-height: 100svh !important;
     padding-top: max(88px, calc(env(safe-area-inset-top) + 72px)) !important;
@@ -823,7 +810,6 @@ html.lenis, html.lenis body {
     display: flex !important;
     align-items: center !important;
   }
-
   .hero-content {
     width: 100% !important;
     padding: 0 !important;
@@ -832,7 +818,6 @@ html.lenis, html.lenis body {
     justify-content: center !important;
     min-height: auto !important;
   }
-
   .hero-copy {
     width: 100% !important;
     max-width: 100% !important;
@@ -840,20 +825,16 @@ html.lenis, html.lenis body {
     z-index: 6 !important;
     margin: 0 !important;
     margin-bottom: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
   }
-
-  .hero-scroll-indicator {
-    margin-top: 44px !important;
-  }
-
   .central-brand {
     display: none !important;
   }
-
   .hero-wordmark-container {
     display: none !important;
   }
-
   .mobile-hero-brand {
     display: flex !important;
     flex-direction: column !important;
@@ -863,11 +844,9 @@ html.lenis, html.lenis body {
     margin-bottom: 42px !important;
     pointer-events: none !important;
   }
-
   .mobile-hero-symbol-float {
     animation: mobileLogoFloat 6s ease-in-out infinite !important;
   }
-
   .mobile-hero-symbol {
     width: min(58vw, 280px) !important;
     height: auto !important;
@@ -875,7 +854,6 @@ html.lenis, html.lenis body {
     opacity: 1 !important;
     filter: none !important;
   }
-
   .mobile-hero-wordmark {
     width: min(34vw, 170px) !important;
     height: auto !important;
@@ -885,23 +863,22 @@ html.lenis, html.lenis body {
     transform: none !important;
     animation: none !important;
   }
-
   .hero-kicker {
     font-size: 12px !important;
     letter-spacing: 0.22em !important;
     margin-bottom: 22px !important;
-    color: rgba(0,0,0,0.48) !important;
+    color: rgba(0, 0, 0, 0.48) !important;
     display: block !important;
+    text-align: center !important;
   }
-
   .hero-title {
-    font-size: clamp(38px, 11vw, 54px) !important;
-    line-height: 0.98 !important;
+    font-size: clamp(34px, 10.5vw, 48px) !important;
+    line-height: 1 !important;
     letter-spacing: -0.055em !important;
     font-weight: 600 !important;
     max-width: 100% !important;
+    text-align: center !important;
   }
-
   .hero-flip-words {
     font-size: inherit !important;
     line-height: inherit !important;
@@ -910,15 +887,16 @@ html.lenis, html.lenis body {
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
-
   .hero-subtitle {
     margin-top: 24px !important;
     max-width: 100% !important;
     font-size: 16px !important;
     line-height: 1.55 !important;
-    color: rgba(0,0,0,0.58) !important;
+    color: rgba(0, 0, 0, 0.58) !important;
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
   }
-
   .hero-actions {
     margin-top: 32px !important;
     width: 100% !important;
@@ -926,7 +904,6 @@ html.lenis, html.lenis body {
     justify-content: center !important;
     align-items: center !important;
   }
-
   .hero-button,
   .primary-button {
     height: 54px !important;
@@ -937,7 +914,6 @@ html.lenis, html.lenis body {
     margin-left: auto !important;
     margin-right: auto !important;
   }
-
   .hero-scroll-indicator,
   .scroll-indicator,
   .scroll-down,
@@ -945,12 +921,12 @@ html.lenis, html.lenis body {
     display: none !important;
   }
 
+  /* Header & Navigation */
   .site-header {
     top: max(14px, env(safe-area-inset-top)) !important;
     padding: 0 16px !important;
     z-index: 80 !important;
   }
-
   .mobile-menu-button {
     width: 54px !important;
     height: 42px !important;
@@ -972,7 +948,6 @@ html.lenis, html.lenis body {
       box-shadow 0.24s ease,
       border-color 0.24s ease !important;
   }
-
   .mobile-menu-button:hover {
     transform: translateY(-1px) !important;
     background: rgba(255, 255, 255, 0.86) !important;
@@ -981,7 +956,6 @@ html.lenis, html.lenis body {
       0 16px 42px rgba(0, 0, 0, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.82) !important;
   }
-
   .mobile-menu-icon {
     display: flex !important;
     flex-direction: column !important;
@@ -989,7 +963,6 @@ html.lenis, html.lenis body {
     align-items: center !important;
     justify-content: center !important;
   }
-
   .mobile-menu-icon span {
     display: block !important;
     width: 18px !important;
@@ -997,119 +970,119 @@ html.lenis, html.lenis body {
     background: #000 !important;
     border-radius: 999px !important;
   }
-
   .nav-pill {
     max-width: calc(100vw - 32px) !important;
     overflow: hidden !important;
   }
 
-  .about-section,
-  .pricing-section,
-  .portfolio-section,
-  .contacts-section {
-    min-height: auto !important;
-    padding-top: 72px !important;
-    padding-bottom: 72px !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+  /* About Section Card Customization */
+  .about-card {
+    padding: 22px !important;
+    border-radius: 24px !important;
   }
 
-  .about-section {
-    padding-bottom: 64px !important;
-    margin-bottom: 0 !important;
-  }
-
-  .pricing-section {
-    padding-top: 64px !important;
-    padding-bottom: 64px !important;
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-  }
-
-  .portfolio-section {
-    padding-top: 64px !important;
-    margin-top: 0 !important;
-  }
-
-  .about-inner {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 28px !important;
-  }
-
-  .about-right {
+  /* Pricing Grid & Card Customization */
+  .pricing-grid {
     grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
-
-  .about-card,
-  .pricing-card,
-  .portfolio-card {
+  .pricing-card {
     min-height: auto !important;
     padding: 24px !important;
+    grid-column: span 1 !important;
   }
-
-  .pricing-grid,
-  .portfolio-grid {
-    grid-template-columns: 1fr !important;
-    gap: 16px !important;
-  }
-
   .pricing-inner {
     margin-bottom: 0 !important;
   }
 
-  .section-header,
-  .pricing-header,
-  .portfolio-header {
-    margin-bottom: 32px !important;
+  /* Portfolio Grid & Card Customization */
+  .portfolio-grid {
+    grid-template-columns: 1fr !important;
+    gap: 18px !important;
+  }
+  .portfolio-card {
+    min-height: auto !important;
+  }
+  .portfolio-preview {
+    height: 220px !important;
   }
 
-  .section-kicker {
-    margin-bottom: 18px !important;
+  /* Footer Responsive Styles */
+  .footer {
+    padding: 80px 24px !important;
+  }
+  .footer-inner,
+  .contacts-inner {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
   }
 
+  /* Typography Settings */
+  .section-title,
   .pricing-header h2,
   .portfolio-header h2,
   .about-title {
-    font-size: clamp(36px, 10vw, 52px) !important;
-    line-height: 1.02 !important;
+    font-size: clamp(34px, 9vw, 46px) !important;
+    line-height: 1.05 !important;
+  }
+  p {
+    font-size: 15px !important;
+    line-height: 1.55 !important;
+  }
+
+  /* Glassmorphism & Shadow Reductions to avoid GPU lag */
+  .glass-card,
+  .pricing-card,
+  .portfolio-card,
+  .about-card {
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04) !important;
+  }
+  
+  .central-symbol-wrap, .hero-symbol-spacer {
+    width: clamp(220px, 60vw, 420px) !important;
+  }
+  .central-wordmark {
+    width: min(40vw, 240px) !important;
   }
 }
 
-/* ── Small Mobile Viewports (max-width: 430px) ── */
+/* 4. Small Mobile (max-width: 430px) */
 @media (max-width: 430px) {
+  .about-section,
+  .pricing-section,
+  .portfolio-section,
+  .contacts-section,
+  .footer {
+    padding: 64px 20px !important;
+  }
+
+  /* Hero Tweaks */
   .hero-section {
     padding-top: max(76px, calc(env(safe-area-inset-top) + 64px)) !important;
     padding-bottom: 48px !important;
   }
-
   .hero-scroll-indicator {
     margin-top: 36px !important;
   }
-
   .mobile-hero-brand {
     gap: 18px !important;
     margin-bottom: 36px !important;
   }
-
   .mobile-hero-symbol {
     width: min(62vw, 250px) !important;
   }
-
   .mobile-hero-wordmark {
     width: min(38vw, 155px) !important;
   }
-
   .hero-title {
     font-size: clamp(34px, 10.5vw, 46px) !important;
     line-height: 1 !important;
   }
-
   .hero-subtitle {
     font-size: 15px !important;
   }
-
   .hero-button,
   .primary-button {
     width: auto !important;
@@ -1118,14 +1091,7 @@ html.lenis, html.lenis body {
     padding: 0 26px !important;
   }
 
-  .about-section,
-  .pricing-section,
-  .portfolio-section,
-  .contacts-section {
-    padding-top: 64px !important;
-    padding-bottom: 64px !important;
-  }
-
+  /* Cards tweaks */
   .about-card,
   .pricing-card,
   .portfolio-card {
@@ -1134,6 +1100,17 @@ html.lenis, html.lenis body {
   }
 }
 
+/* 5. Reduced Motion Accessibility Mode */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Custom animations keyframes */
 @keyframes mobileLogoFloat {
   0% {
     transform: translateY(0px) rotateZ(-0.15deg);
@@ -1144,4 +1121,13 @@ html.lenis, html.lenis body {
   100% {
     transform: translateY(0px) rotateZ(-0.15deg);
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
 }

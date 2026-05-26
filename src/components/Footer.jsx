@@ -10,9 +10,9 @@ export default function Footer({ onNavigate }) {
   return (
     <footer 
       id="footer" 
-      className="relative w-full h-screen bg-brand-black text-white px-6 md:px-16 py-8 md:py-16 select-none border-t border-white/[0.05] flex-shrink-0 overflow-hidden flex flex-col justify-between"
+      className="footer relative w-full min-h-screen lg:h-screen lg:min-h-0 bg-brand-black text-white px-6 md:px-16 py-8 md:py-16 select-none border-t border-white/[0.05] flex-shrink-0 overflow-hidden flex flex-col justify-between"
     >
-      <div className="w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 md:gap-16 my-auto items-center">
+      <div className="footer-inner w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 md:gap-16 my-auto items-center">
         
         {/* Left Column (Brand bio) */}
         <div className="lg:col-span-4 flex flex-col gap-4 md:gap-8 justify-center">
