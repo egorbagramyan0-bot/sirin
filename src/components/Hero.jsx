@@ -4,8 +4,7 @@ import { FlipWords } from "@/components/ui/flip-words";
 const heroWords = [
   "выглядят дорого",
   "приводят клиентов",
-  "вызывают доверие",
-  "продают услугу",
+  "вызывают доверие"
 ];
 
 export default function Hero({ onPortfolioClick }) {

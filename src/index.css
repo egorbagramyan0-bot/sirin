@@ -917,6 +917,10 @@ html.lenis, html.lenis body {
 
   .hero-actions {
     margin-top: 32px !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
 
   .hero-button,
@@ -926,6 +930,15 @@ html.lenis, html.lenis body {
     border-radius: 999px !important;
     font-size: 12px !important;
     letter-spacing: 0.1em !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .hero-scroll-indicator,
+  .scroll-indicator,
+  .scroll-down,
+  .hero-arrow-down {
+    display: none !important;
   }
 
   .site-header {
