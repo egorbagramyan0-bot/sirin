@@ -105,12 +105,12 @@ export default function Header({ onNavigate, onLogoClick, activeIndex }) {
 
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-            className="flex flex-col justify-between w-6 h-4 z-50 mobile-nav-only bg-transparent border-none cursor-pointer focus:outline-none mix-blend-difference"
+            className="flex flex-col justify-between w-6 h-4 z-50 mobile-nav-only bg-transparent border-none cursor-pointer focus:outline-none"
             aria-label="Toggle menu"
           >
-            <span className={`w-full h-0.5 bg-white transition-all duration-300 origin-left ${isMobileMenuOpen ? 'rotate-45 translate-y-[2px] translate-x-[2px]' : ''}`}></span>
-            <span className={`w-full h-0.5 bg-white transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
-            <span className={`w-full h-0.5 bg-white transition-all duration-300 origin-left ${isMobileMenuOpen ? '-rotate-45 -translate-y-[2px] translate-x-[2px]' : ''}`}></span>
+            <span className={`w-full h-0.5 bg-black transition-all duration-300 origin-left ${isMobileMenuOpen ? 'rotate-45 translate-y-[2px] translate-x-[2px]' : ''}`}></span>
+            <span className={`w-full h-0.5 bg-black transition-all duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`}></span>
+            <span className={`w-full h-0.5 bg-black transition-all duration-300 origin-left ${isMobileMenuOpen ? '-rotate-45 -translate-y-[2px] translate-x-[2px]' : ''}`}></span>
           </button>
         </div>
       </header>
