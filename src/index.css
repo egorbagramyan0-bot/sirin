@@ -836,7 +836,7 @@ html.lenis, html.lenis body {
 .footer-buttons {
   display: flex;
   gap: 12px;
-  margin-top: 28px;
+  margin-top: 12px;
 }
 
 .footer-button {

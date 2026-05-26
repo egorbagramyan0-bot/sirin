@@ -154,14 +154,6 @@ export default function Footer({ onNavigate }) {
               Telegram
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
-            <a 
-              href="#" 
-              className="footer-button"
-              aria-label="Связаться в WhatsApp"
-            >
-              WhatsApp
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
           </div>
         </div>
 
