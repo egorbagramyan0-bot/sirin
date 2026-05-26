@@ -85,8 +85,8 @@ export default function ApproachSection() {
     >
       <div className="pricing-inner">
         {/* Header */}
-        <div className="pricing-header">
-          <span className="font-display text-[10px] md:text-[11px] font-semibold tracking-[0.3em] text-brand-gray uppercase mb-3 block">
+        <div className="pricing-header section-header">
+          <span className="section-kicker font-display text-[10px] md:text-[11px] font-semibold tracking-[0.3em] text-brand-gray uppercase mb-3 block">
             ЦЕНЫ
           </span>
           <h2 className="font-display text-2xl sm:text-3xl lg:text-[44px] font-light tracking-tight text-brand-black leading-tight mb-3">

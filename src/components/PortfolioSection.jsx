@@ -132,8 +132,8 @@ export default function PortfolioSection() {
     >
       <div className="portfolio-inner">
         {/* Header */}
-        <div className="portfolio-header">
-          <span className="font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-3 block">
+        <div className="portfolio-header section-header">
+          <span className="section-kicker font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-3 block">
             ПОРТФОЛИО
           </span>
           <h2 className="font-display text-2xl sm:text-3xl lg:text-[44px] font-light tracking-tight text-brand-black leading-tight mb-3">

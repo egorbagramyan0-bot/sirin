@@ -10,10 +10,10 @@ export default function AboutSection() {
       <div className="about-inner">
         {/* Left Column - Content */}
         <div className="about-left flex flex-col justify-center">
-          <span className="font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-6 block">
+          <span className="section-kicker font-display text-[10px] md:text-xs font-semibold tracking-[0.3em] text-brand-gray uppercase mb-6 block">
             О СТУДИИ
           </span>
-          <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-brand-black leading-tight mb-8">
+          <h2 className="about-title font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-brand-black leading-tight mb-8">
             Упаковываем бизнес в современный сайт.
           </h2>
           <p className="font-sans text-xs md:text-sm text-brand-gray leading-relaxed mb-12">

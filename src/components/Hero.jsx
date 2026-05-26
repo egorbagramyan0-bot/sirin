@@ -79,7 +79,7 @@ export default function Hero({ onPortfolioClick }) {
       </div>
 
       {/* Bottom Container with Scroll Indicator */}
-      <div className="relative z-20 w-full text-center flex flex-col items-center justify-end pb-4">
+      <div className="hero-scroll-indicator relative z-20 w-full text-center flex flex-col items-center justify-end pb-4">
         {/* Scroll Indicator */}
         <div className="flex flex-col items-center gap-2 animate-bounce">
           <svg 
