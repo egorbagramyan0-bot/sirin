@@ -825,7 +825,7 @@ html.lenis, html.lenis body {
 
   .hero-copy {
     position: relative !important;
-    z-index: 6 !important;
+    z-index: 5 !important;
     max-width: 100% !important;
     margin: 0 !important;
   }
@@ -850,7 +850,7 @@ html.lenis, html.lenis body {
     position: absolute !important;
     left: 0 !important;
     top: 0 !important;
-    width: 100vw !important;
+    width: 100% !important;
     height: 100svh !important;
     pointer-events: none !important;
     z-index: 1 !important;
@@ -868,7 +868,8 @@ html.lenis, html.lenis body {
     filter: blur(2px) !important;
   }
 
-  .central-symbol-wrap img {
+  .central-symbol-wrap img,
+  .central-symbol-wrap svg {
     width: 100% !important;
     height: auto !important;
     display: block !important;
@@ -883,7 +884,7 @@ html.lenis, html.lenis body {
     width: min(46vw, 220px) !important;
     height: auto !important;
     gap: 0 !important;
-    z-index: 2 !important;
+    z-index: 1 !important;
   }
 
   .hero-symbol-spacer {
@@ -892,10 +893,17 @@ html.lenis, html.lenis body {
 
   .central-wordmark {
     width: 100% !important;
-    opacity: 0.16 !important;
+    opacity: 0.35 !important;
     filter: none !important;
     transform: none !important;
     animation: none !important;
+  }
+
+  .central-wordmark img,
+  .central-wordmark svg {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
   }
 
   .central-symbol-float {
@@ -916,6 +924,8 @@ html.lenis, html.lenis body {
 
   .hero-button,
   .primary-button {
+    position: relative !important;
+    z-index: 6 !important;
     height: 54px !important;
     padding: 0 28px !important;
     font-size: 12px !important;
@@ -1006,7 +1016,7 @@ html.lenis, html.lenis body {
   }
 
   .central-wordmark {
-    opacity: 0.14 !important;
+    opacity: 0.30 !important;
   }
 
   .hero-subtitle {
@@ -1016,6 +1026,8 @@ html.lenis, html.lenis body {
 
   .hero-button,
   .primary-button {
+    position: relative !important;
+    z-index: 6 !important;
     width: auto !important;
     max-width: 100% !important;
     height: 52px !important;
