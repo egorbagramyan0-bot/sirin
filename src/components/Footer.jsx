@@ -178,7 +178,13 @@ export default function Footer({ onNavigate, hideCTA = false }) {
           >
             Политика конфиденциальности
           </a>
-          <a href="#" className="hover:text-white transition-colors">Условия использования</a>
+          <a 
+            href="/terms" 
+            onClick={(e) => handleNav(e, '/terms')}
+            className="hover:text-white transition-colors"
+          >
+            Пользовательское соглашение
+          </a>
         </div>
       </div>
     </footer>

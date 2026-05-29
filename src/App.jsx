@@ -6,6 +6,7 @@ import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import CentralBrandLogo from './components/CentralBrandLogo';
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsPage from './pages/TermsPage';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -160,6 +161,19 @@ export default function App() {
           activeIndex={-1}
         />
         <PrivacyPolicyPage onNavigate={handleNavigatePath} />
+      </div>
+    );
+  }
+
+  if (currentPath === '/terms') {
+    return (
+      <div id="app-container" className="relative w-full min-h-screen bg-white">
+        <Header 
+          onNavigate={handleNavClick} 
+          onLogoClick={handleLogoHomeClick}
+          activeIndex={-1}
+        />
+        <TermsPage onNavigate={handleNavigatePath} />
       </div>
     );
   }
