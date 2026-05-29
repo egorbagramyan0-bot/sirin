@@ -32,7 +32,7 @@ export default function App() {
   const goToSection = (index) => {
     if (index < 0 || index > 4) return;
 
-    const sections = ['#hero', '#about', '#approach', '#portfolio', '#footer'];
+    const sections = ['#hero', '#about', '#approach', '#portfolio', '#contacts'];
     const targetSelector = sections[index];
     const targetElement = document.querySelector(targetSelector);
 
@@ -68,6 +68,7 @@ export default function App() {
         { id: "#about", index: 1 },
         { id: "#approach", index: 2 },
         { id: "#portfolio", index: 3 },
+        { id: "#contacts", index: 4 },
         { id: "#footer", index: 4 }
       ];
 
@@ -93,7 +94,7 @@ export default function App() {
     { id: 'about', label: 'О студии' },
     { id: 'approach', label: 'Цены' },
     { id: 'portfolio', label: 'Портфолио' },
-    { id: 'footer', label: 'Контакты' },
+    { id: 'contacts', label: 'Контакты' },
   ];
 
   return (

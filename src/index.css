@@ -1286,3 +1286,126 @@ html.lenis, html.lenis body {
 .animate-fade-in {
   animation: fadeIn 0.25s ease-out forwards;
 }
+
+/* ── Pre-Footer CTA Section ── */
+.prefooter-cta-section {
+  position: relative;
+  z-index: 6;
+  padding: 96px clamp(56px, 7vw, 120px) 96px;
+  background: #fff;
+}
+
+.prefooter-cta-card {
+  width: min(860px, 100%);
+  margin: 0 auto;
+  padding: clamp(42px, 5vw, 72px);
+  border-radius: 34px;
+  background: rgba(255, 255, 255, 0.84);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.prefooter-cta-card .section-kicker {
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.42);
+  margin-bottom: 22px;
+}
+
+.prefooter-cta-card h2 {
+  margin: 0;
+  font-size: clamp(38px, 4.2vw, 72px);
+  line-height: 0.96;
+  letter-spacing: -0.06em;
+  font-weight: 600;
+  color: #000;
+}
+
+.prefooter-cta-card p {
+  margin: 22px auto 0;
+  max-width: 560px;
+  font-size: 16px;
+  line-height: 1.55;
+  color: rgba(0, 0, 0, 0.58);
+}
+
+.prefooter-cta-actions {
+  margin-top: 34px;
+  display: flex;
+  justify-content: center;
+}
+
+.prefooter-cta-button {
+  height: 54px;
+  min-width: 220px;
+  padding: 0 30px;
+  border-radius: 999px;
+  background: #000;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.16);
+  transition: transform 0.24s ease, box-shadow 0.24s ease, background 0.24s ease;
+}
+
+.prefooter-cta-button:hover {
+  transform: translateY(-2px);
+  background: #111;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.2);
+}
+
+.prefooter-cta-note {
+  margin-top: 22px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(0, 0, 0, 0.46);
+}
+
+@media (max-width: 768px) {
+  .prefooter-cta-section {
+    padding: 72px 24px;
+  }
+
+  .prefooter-cta-card {
+    padding: 38px 24px;
+    border-radius: 28px;
+  }
+
+  .prefooter-cta-card h2 {
+    font-size: clamp(34px, 9vw, 46px);
+    line-height: 1;
+  }
+
+  .prefooter-cta-card p {
+    font-size: 15px;
+    margin-top: 18px;
+  }
+
+  .prefooter-cta-actions {
+    width: 100%;
+    margin-top: 28px;
+  }
+
+  .prefooter-cta-button {
+    width: 100%;
+    max-width: 320px;
+    height: 52px;
+  }
+}
+

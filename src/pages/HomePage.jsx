@@ -3,6 +3,7 @@ import Hero from '../components/Hero';
 import AboutSection from '../components/AboutSection';
 import ApproachSection from '../components/ApproachSection';
 import PortfolioSection from '../components/PortfolioSection';
+import PreFooterCTA from '../components/PreFooterCTA';
 import Footer from '../components/Footer';
 
 export default function HomePage({ 
@@ -20,7 +21,9 @@ export default function HomePage({
       <AboutSection />
       <ApproachSection />
       <PortfolioSection />
+      <PreFooterCTA />
       <Footer onNavigate={handleNavClick} />
     </div>
   );
 }
+
