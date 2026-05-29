@@ -1463,10 +1463,13 @@ html.lenis, html.lenis body {
   font-size: 15px;
   line-height: 1.75;
   color: rgba(0,0,0,0.68);
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .legal-content ul {
   padding-left: 22px;
+  list-style-type: disc;
 }
 
 .legal-content strong {
