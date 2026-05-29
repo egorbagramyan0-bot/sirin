@@ -147,7 +147,9 @@ export default function Footer({ onNavigate }) {
 
           <div className="footer-buttons">
             <a 
-              href="#" 
+              href="https://t.me/websirin" 
+              target="_blank"
+              rel="noopener noreferrer"
               className="footer-button"
               aria-label="Связаться в Telegram"
             >
