@@ -5,14 +5,37 @@ import useLenis from './hooks/useLenis';
 import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import CentralBrandLogo from './components/CentralBrandLogo';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [pendingScrollIndex, setPendingScrollIndex] = useState(null);
 
   const containerRef = useRef(null);
   const activeIndexRef = useRef(0);
+
+  // Router popstate listener
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Handle pending scroll index on Home page load/navigation
+  useEffect(() => {
+    if (currentPath === '/' && pendingScrollIndex !== null) {
+      const timer = setTimeout(() => {
+        goToSection(pendingScrollIndex);
+        setPendingScrollIndex(null);
+      }, 80);
+      return () => clearTimeout(timer);
+    }
+  }, [currentPath, pendingScrollIndex]);
 
   // Initialize Lenis smooth scroll
   useLenis();
@@ -49,11 +72,42 @@ export default function App() {
   };
 
   const handleNavClick = (targetIndex) => {
-    goToSection(targetIndex);
+    if (typeof targetIndex === 'string') {
+      // Handle path navigation directly (e.g. from footer link)
+      window.history.pushState({}, '', targetIndex);
+      setCurrentPath(targetIndex);
+      window.scrollTo(0, 0);
+    } else {
+      if (window.location.pathname !== '/') {
+        setPendingScrollIndex(targetIndex);
+        window.history.pushState({}, '', '/');
+        setCurrentPath('/');
+      } else {
+        goToSection(targetIndex);
+      }
+    }
   };
 
   const handleLogoHomeClick = () => {
-    goToSection(0);
+    if (window.location.pathname !== '/') {
+      setPendingScrollIndex(0);
+      window.history.pushState({}, '', '/');
+      setCurrentPath('/');
+    } else {
+      goToSection(0);
+    }
+  };
+
+  const handleNavigatePath = (path, targetIndex = null) => {
+    if (path === '/') {
+      if (targetIndex !== null) {
+        setPendingScrollIndex(targetIndex);
+      } else {
+        setPendingScrollIndex(0);
+      }
+    }
+    window.history.pushState({}, '', path);
+    setCurrentPath(path);
   };
 
   const handlePortfolioNavigation = () => {
@@ -96,6 +150,19 @@ export default function App() {
     { id: 'portfolio', label: 'Портфолио' },
     { id: 'contacts', label: 'Контакты' },
   ];
+
+  if (currentPath === '/privacy-policy') {
+    return (
+      <div id="app-container" className="relative w-full min-h-screen bg-white">
+        <Header 
+          onNavigate={handleNavClick} 
+          onLogoClick={handleLogoHomeClick}
+          activeIndex={-1}
+        />
+        <PrivacyPolicyPage onNavigate={handleNavigatePath} />
+      </div>
+    );
+  }
 
   return (
     <div id="app-container" className="relative w-full min-h-screen bg-white">

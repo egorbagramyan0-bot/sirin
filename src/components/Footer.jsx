@@ -1,10 +1,10 @@
 import React from 'react';
 import { ArrowUpRight } from 'lucide-react';
 
-export default function Footer({ onNavigate }) {
-  const handleNav = (e, index) => {
+export default function Footer({ onNavigate, hideCTA = false }) {
+  const handleNav = (e, target) => {
     e.preventDefault();
-    onNavigate?.(index);
+    onNavigate?.(target);
   };
 
   return (
@@ -135,29 +135,33 @@ export default function Footer({ onNavigate }) {
         </div>
 
         {/* Right Column (CTA) */}
-        <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-4">
-            <h3 className="footer-title">
-              ОБСУДИМ ПРОЕКТ?
-            </h3>
-            <p className="footer-cta-text">
-              Расскажите, какой сайт нужен вашему бизнесу. Мы предложим структуру, стиль и понятный план запуска.
-            </p>
-          </div>
+        {!hideCTA ? (
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4">
+              <h3 className="footer-title">
+                ОБСУДИМ ПРОЕКТ?
+              </h3>
+              <p className="footer-cta-text">
+                Расскажите, какой сайт нужен вашему бизнесу. Мы предложим структуру, стиль и понятный план запуска.
+              </p>
+            </div>
 
-          <div className="footer-buttons">
-            <a 
-              href="https://t.me/websirin" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="footer-button"
-              aria-label="Связаться в Telegram"
-            >
-              Telegram
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
+            <div className="footer-buttons">
+              <a 
+                href="https://t.me/websirin" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="footer-button"
+                aria-label="Связаться в Telegram"
+              >
+                Telegram
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div />
+        )}
 
       </div>
 
@@ -167,7 +171,13 @@ export default function Footer({ onNavigate }) {
           &copy; 2026 SIRIN. Студия веб-дизайна.
         </span>
         <div className="flex gap-6">
-          <a href="#" className="hover:text-white transition-colors">Политика конфиденциальности</a>
+          <a 
+            href="/privacy-policy" 
+            onClick={(e) => handleNav(e, '/privacy-policy')}
+            className="hover:text-white transition-colors"
+          >
+            Политика конфиденциальности
+          </a>
           <a href="#" className="hover:text-white transition-colors">Условия использования</a>
         </div>
       </div>
